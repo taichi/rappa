@@ -1,0 +1,22 @@
+{
+  "name": "taichi viewing method",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "This extension supports code reading method used by taichi",
+  "browser_action": {
+    "default_icon": "images/axe.png",
+    "default_title": "0"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://github.com/*", "https://github.com/*"],
+      "css": ["css/styles.css"],
+      "js": ["lib/jquery-1.8.2.min.js", "lib/jquery-observe.js", "js/blur.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "scripts": ["lib/sha256.js", "js/util.js", "js/model.js", "js/bg.js"]
+  },
+  "permissions": ["tabs", "http://github.com/*", "https://github.com/*"]
+}

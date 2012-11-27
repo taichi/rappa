@@ -1,0 +1,15 @@
+.blur_none {
+  -webkit-filter: none;
+}
+
+.blur_light {
+  -webkit-filter: blur(1px);
+}
+
+.blur_middle {
+  -webkit-filter: blur(3px);
+}
+
+.blur_heavy {
+  -webkit-filter: blur(5px);
+}
