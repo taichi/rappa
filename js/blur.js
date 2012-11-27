@@ -16,26 +16,37 @@
       content.addClass(state[s]);
     };
 
-    var requestTimes = send.bind(null, {
-      type : 'times',
-      url : location.href
-    }, handleTimes);
+    var requestTimes = function() {
+      send({
+        type : 'times',
+        url : location.href
+      }, handleTimes);
+    };
 
     $(document).observe({
       subtree : true,
       childList : true,
       attributes : false
-    }, '#files .highlight', requestTimes);
+    }, '#files .highlight', function() {
+      reachToBottom = false;
+      requestTimes();
+    });
 
+    var reachToBottom = false;
     $(window).on('scroll', function() {
       var bottom = $(document).height() - $(window).height();
-      if ($(this).scrollTop() >= bottom) {
+      var scrollTop = $(this).scrollTop();
+      if (reachToBottom === false && scrollTop >= bottom) {
+        reachToBottom = true;
         var n = $('.line_numbers :last-child').first().text();
         send({
           type : 'line',
           url : location.href,
           line : n
         }, handleTimes);
+      }
+      if (reachToBottom === true && scrollTop < 10) {
+        reachToBottom = false;
       }
     });
 
