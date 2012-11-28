@@ -1,17 +1,20 @@
 ( function(global) {
-    var ba = chrome.browserAction;
-    ba.setBadgeBackgroundColor({
-      color : '#FF6633'
-    });
-    var updateBadge = function(value) {
-      var str = String(value);
-      ba.setBadgeText({
-        text : str
-      });
-      ba.setTitle({
-        title : str
-      });
-    };
+    var updateBadge = ( function() {
+        var ba = chrome.browserAction;
+        ba.setBadgeBackgroundColor({
+          color : '#FF6633'
+        });
+        return function(value) {
+          var str = String(value);
+          ba.setBadgeText({
+            text : str
+          });
+          ba.setTitle({
+            title : str
+          });
+        }
+      }());
+
     var massacre = new Massacre();
 
     var getTimes = function(request, sender, response) {
