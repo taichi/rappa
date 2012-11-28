@@ -1,6 +1,28 @@
 ( function(global) {
     var send = chrome.extension.sendMessage;
     var state = ['blur_heavy', 'blur_middle', 'blur_light'];
+    
+    var getCurrentRepo = function() {
+      var url = $('meta[property="og:url"]').attr('content');
+      if(url) {
+        var ary = url.split('/');
+        return {
+          user : ary[3],
+          repo : ary[4]
+        }
+      }
+      return null;
+    };
+    var requestTree = function() {
+      var repo = getCurrentRepo();
+      if(repo != null) {
+        repo.type = 'tree';
+        send(repo, function(response){
+          console.log(response);
+        });
+      }
+    };
+    //requestTree();
 
     var handleTimes = function(response) {
       var times = Number(response.times);

@@ -16,7 +16,10 @@
     }
   ],
   "background": {
-    "scripts": ["lib/sha256.js", "js/util.js", "js/model.js", "js/bg.js"]
+    "scripts": [
+      "lib/sha256.js", "lib/base64.js", "lib/underscore-min.js", "lib/github.js", "lib/purl.js",
+      "js/util.js", "js/model.js", "js/bg.js"
+    ]
   },
   "permissions": ["tabs", "http://github.com/*", "https://github.com/*"]
 }
