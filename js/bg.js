@@ -40,14 +40,16 @@
         if (err) {
           throw err;
         }
-        var trees = _.reduce(tree, function(memo, e){
-          if(e["type"] === "tree") {
-            memo.push(e["path"]);
+        var trees = _.reduce(tree, function(memo, e) {
+          if (e['type'] === 'tree') {
+            memo.push(e['path']);
           }
+          return memo;
         }, []);
         trees.sort();
         response(trees);
       });
+      return true;
     };
 
     var events = {
@@ -58,8 +60,9 @@
     chrome.extension.onMessage.addListener(function(request, sender, response) {
       var fn = events[request.type];
       if (fn) {
-        fn(request, sender, response);
+        return fn(request, sender, response);
       }
+      return false;
     });
     updateBadge(massacre.getPower());
 
