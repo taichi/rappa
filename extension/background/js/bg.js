@@ -39,16 +39,16 @@
         auth : "basic" // TODO need auth?
       });
       var repo = github.getRepo(request.user, request.repo);
-      repo.getTree('master?recursive=true', function(err, tree) {
+      repo.getTree(request.branch + '?recursive=true', function(err, tree) {
         if (err) {
           throw err;
         }
         var trees = _.reduce(tree, function(memo, e) {
           if (e['type'] === 'tree') {
-            memo.push(e['path']);
+            memo.push(request.branch + '/' + e['path']);
           }
           return memo;
-        }, []);
+        }, [request.branch]);
         trees.sort();
         response(trees);
       });

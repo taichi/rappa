@@ -13,3 +13,34 @@
 .blur_heavy {
   -webkit-filter: blur(5px);
 }
+
+.repo_container {
+  position : fixed;
+  top : 15%;
+  left : 1em;
+  overflow: hidden;
+}
+
+.repo_container .mini-icon.state {
+  color: #80A6CD;
+}
+.repo_container .mini-icon.state:hover {
+  cursor: pointer;
+}
+
+.repo_container .collapsed:before {
+  content: "\f05a";
+}
+.repo_container .expanded:before {
+  content: "\f05b";
+}
+
+.repo_container .name {
+  text-overflow: clip;
+}
+
+@media screen and (max-width: 960px) {
+  .repo_container {
+    display: none;
+  }
+}

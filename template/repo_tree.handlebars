@@ -1,0 +1,19 @@
+<div class="repo_container">
+<table class="treegrid">
+  <tr class="row">
+    <td>
+      <div>
+        <span class="mini-icon mini-icon-branch"></span>{{#with root}}
+        <a class="name" href="{{href}}">{{name}}</a>{{/with}}
+      </div>
+    </td>
+  </tr>{{#each tree}}
+  <tr data-path="{{path}}" data-level="{{level}}" class="row"{{#unless visible}} style="display: none;"{{/unless}}>
+    <td {{#if indent}} style="padding-left: {{indent}}px;"{{/if}}>
+      <div>
+        <span class="mini-icon state collapsed"></span><a class="name" href="{{href}}">{{name}}</a>
+      </div>
+    </td>
+  </tr>{{/each}}
+</table>
+</div>
