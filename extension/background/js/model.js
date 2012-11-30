@@ -9,7 +9,7 @@
       this.getTimes = function(url) {
         var hash = CryptoJS.SHA256(url);
         var times = self.urls[hash];
-        if (isDefined(times) === false) {
+        if (_.isUndefined(times) === false) {
           times = 0;
         }
         return times;
@@ -18,7 +18,7 @@
       this.addTimes = function(url) {
         var hash = CryptoJS.SHA256(url);
         var times = self.urls[hash];
-        if (isDefined(times) === false) {
+        if (_.isUndefined(times) === false) {
           times = 0;
         }
         self.urls[hash] = ++times;
