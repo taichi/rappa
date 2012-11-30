@@ -11,7 +11,7 @@
   <tr data-path="{{path}}" data-level="{{level}}" class="row"{{#unless visible}} style="display: none;"{{/unless}}>
     <td {{#if indent}} style="padding-left: {{indent}}px;"{{/if}}>
       <div>
-        <span class="mini-icon state collapsed"></span><a class="name" href="{{href}}">{{name}}</a>
+        <span class="mini-icon state {{state}}"></span><a class="name" href="{{href}}">{{name}}</a>
       </div>
     </td>
   </tr>{{/each}}

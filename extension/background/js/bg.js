@@ -34,6 +34,7 @@
       getTimes(request, sender, response);
     };
 
+    var treeCache = {};
     var getTree = ( function() {
         var newTree = function(request, callback) {
           var github = new Github({
@@ -44,23 +45,39 @@
             if (err) {
               throw err;
             }
+            var makeHref = function(path) {
+              return ['https://github.com', request.user, request.repo, 'tree', path].join('/');
+            };
             var trees = _.reduce(tree, function(memo, e) {
-              if (e['type'] === 'tree') {
-                memo.push(request.branch + '/' + e['path']);
+              if (e.type === 'tree') {
+                var path = request.branch + '/' + e.path;
+                var ary = path.split('/');
+                var level = ary.length - 1;
+                memo.push({
+                  path : path,
+                  level : level,
+                  href : makeHref(path),
+                  name : _.last(ary),
+                  visible : level < 2,
+                  indent : level * 9,
+                  state : 'collapsed'
+                });
               }
               return memo;
-            }, [request.branch]);
-            trees.sort();
+            }, [{
+              name : request.branch,
+              href : makeHref(request.branch)
+            }]);
+            _.sortBy(trees, 'path');
             callback(trees);
           });
         };
-        var cache = {};
         return function(request, sender, response) {
           var cacheKey = [request.user, request.repo, request.hash].join('/');
-          var cached = cache[cacheKey];
+          var cached = treeCache[cacheKey];
           if (_.isUndefined(cached)) {
-            newTree(request, function(trees){
-              cache[cacheKey] = trees;
+            newTree(request, function(trees) {
+              treeCache[cacheKey] = trees;
               response(trees);
             });
             return true;
@@ -70,8 +87,18 @@
         };
       }());
 
+    var updateStates = function(request, sender, response) {
+      var cacheKey = [request.user, request.repo, request.hash].join('/');
+      var cached = treeCache[cacheKey];
+      if (_.isUndefined(cached) === false) {
+        treeCache[cacheKey] = request.tree;
+      }
+      reponse('ok');
+    };
+
     var events = {
       tree : getTree,
+      states : updateStates,
       line : setPower,
       times : getTimes
     };

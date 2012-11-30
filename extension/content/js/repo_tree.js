@@ -14,21 +14,28 @@
       }
     };
 
-    var makeRepoTree = function(repo, array) {
-      return _.map(array, function(path) {
-        var ary = path.split('/');
-        var level = ary.length - 1;
-        var href = ['https://github.com', repo.user, repo.repo, 'tree', path].join('/');
-        return {
-          path : path,
-          level : level,
-          href : href,
-          name : _.last(ary),
-          visible : level < 2,
-          indent : level * 9
+    var updateStates = function(tree) {
+      _.delay(function() {
+        var request = getCurrentRepo();
+        if (_.isUndefined(request)) {
+          return;
         }
+        request.type = 'states';
+        request.tree = tree;
+        chrome.extension.sendMessage(request);
       });
     };
+
+    var applyNode = function(prop, tree, path, value) {
+      var node = _.find(tree, function(s) {
+        return s.path === path
+      });
+      if (node) {
+        node[prop] = value;
+      }
+    };
+    var setVisible = _.partial(applyNode, 'visible');
+    var setState = _.partial(applyNode, 'state');
 
     var requestTree = function() {
       var request = getCurrentRepo();
@@ -40,10 +47,9 @@
         if (response.length < 2) {
           return;
         }
-        var ary = makeRepoTree(request, response);
         var dom = Handlebars.templates.repo_tree({
-          root : _.head(ary),
-          tree : _.tail(ary)
+          root : _.head(response),
+          tree : _.tail(response)
         });
         var blank = ($(window).width() - $('.container').width()) / 2 - 16;
         $(dom).css({
@@ -60,22 +66,30 @@
           var $this = $(this);
           if ($this.hasClass('collapsed')) {
             $this.removeClass('collapsed').addClass('expanded');
+            setState(response, path, 'expanded');
             $states.each(function() {
               var $r = getParentRow(this);
-              if (level + 1 == $r.data('level') && -1 < $r.data('path').indexOf(path)) {
+              var p = $r.data('path');
+              if (level + 1 == $r.data('level') && -1 < p.indexOf(path)) {
+                setVisible(response, p, true);
                 $r.show();
               }
             });
           } else {
             $this.removeClass('expanded').addClass('collapsed');
+            setState(response, path, 'collapsed');
             $states.each(function() {
               var $r = getParentRow(this);
-              if (level < $r.data('level') && -1 < $r.data('path').indexOf(path)) {
+              var p = $r.data('path');
+              if (level < $r.data('level') && -1 < p.indexOf(path)) {
                 $(this).removeClass('expanded').addClass('collapsed');
+                setState(response, p, 'collapsed');
+                setVisible(response, p, false);
                 $r.hide();
               }
             });
           }
+          updateStates(response);
         });
       });
     };
