@@ -1,0 +1,14 @@
+{
+  "name": "rappa",
+  "author": "SATO taichi <ryushi@gmail.com>",
+  "devDependencies": {
+    "grunt-cli": ">= 0.1.0",
+    "handlebars": ">= 1.0.7",
+    "lodash": ">= 0.10.0"
+  },
+  {
+    "scripts": {
+      "postinstall": "grunt build"
+    }
+  }
+}

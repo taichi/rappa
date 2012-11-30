@@ -14,6 +14,13 @@
         }
       }
     };
+    
+    var getCurrentHash = function() {
+      var href = $('head link[rel="permalink"]').attr('href');
+      if(href) {
+        return href.split('/')[3];
+      }
+    };
 
     var makeRepoTree = function(repo, array) {
       return _.map(array, function(path) {
@@ -33,8 +40,10 @@
 
     var requestTree = function() {
       var request = getCurrentRepo();
-      if (request) {
+      var hash = getCurrentHash();
+      if (request && hash) {
         request.type = 'tree';
+        request.hash = hash;
         send(request, function(response) {
           if (response.length < 2) {
             return;
