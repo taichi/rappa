@@ -9,7 +9,7 @@
           user : ary[3],
           repo : ary[4],
           hash : href.split('/')[3],
-          branch : tree
+          treeName : tree
         }
       }
     };
