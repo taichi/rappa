@@ -15,9 +15,9 @@
 }
 
 .repo_container {
-  position : fixed;
-  top : 15%;
-  left : 1em;
+  position: absolute;
+  top: 104px; /* 41 20 28 10 5*/
+  left: 1em;
   overflow: hidden;
 }
 
@@ -37,6 +37,23 @@
 
 .repo_container .name {
   text-overflow: clip;
+}
+.repo_container .actions .tree_action {
+  float: right;
+  padding-left: 4px;
+  cursor: pointer;
+}
+.repo_container .actions .refresh:before {
+  content: "\f087";
+}
+.repo_container .actions .tree_action img {
+  border-radius: 3px;
+  border: 1px solid #D4D4D4;
+  border-bottom-color: #BCBCBC;
+}
+
+.treegrid {
+  width: 100%;
 }
 
 @media screen and (max-width: 960px) {

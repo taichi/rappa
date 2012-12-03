@@ -55,6 +55,41 @@
         $(dom).css({
           'width' : blank
         }).appendTo('body');
+        var getSrc = function(name) {
+          return chrome.extension.getURL("content/img/" + name + ".png");
+        };
+        _.delay(function() {
+          _(['expand', 'collapse']).each(function(e) {
+            $('.actions img.' + e).attr('src', getSrc(e));
+          });
+        });
+        var applyAllRow = function(from, to, fn) {
+          $('.row[data-path][data-level]').each(function() {
+            var $this = $(this);
+            var path = $this.data('path');
+            $this.find('.state').each(function() {
+              $(this).removeClass(from).addClass(to);
+              setState(response, path, to);
+            });
+            fn($this, path);
+          });
+          updateStates(response);
+        };
+        $('.tree_action .expand').on('click', function(event) {
+          applyAllRow('collapsed', 'expanded', function($this, p) {
+            setVisible(response, p, true);
+            $this.show();
+          });
+        });
+        $('.tree_action .collapse').on('click', function(event) {
+          applyAllRow('expanded', 'collapsed', function($this, p) {
+            var level = $this.data('level');
+            if (1 < level) {
+              setVisible(response, p, false);
+              $this.hide();
+            }
+          });
+        });
         var getParentRow = function(self) {
           return $(self).parents('.row[data-path][data-level]');
         };

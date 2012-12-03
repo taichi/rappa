@@ -15,7 +15,7 @@
         }
       }());
 
-    var massacre = new Massacre();
+    var massacre = new global.Massacre();
 
     var getTimes = function(request, sender, response) {
       response({
@@ -36,7 +36,7 @@
 
     var treeCache = ( function() {
         var self = {};
-        var cache = {};
+        var cache = {}; // TODO persistent
         var makeCacheKey = function(request) {
           return [request.user, request.repo, request.hash].join('/');
         };
@@ -101,7 +101,7 @@
 
     var updateStates = function(request, sender, response) {
       treeCache.setCache(request, request.tree);
-      reponse('ok');
+      response('ok');
     };
 
     var events = {

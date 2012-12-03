@@ -9,7 +9,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://github.com/*", "https://github.com/*"],
+      "matches": ["https://github.com/*"],
       "css": ["content/css/styles.css"],
       "js": [
         "common/lodash.custom.min.js",
@@ -21,13 +21,20 @@
       "run_at": "document_end"
     }
   ],
+  "web_accessible_resources": [
+    "content/img/collapse.png",
+    "content/img/expand.png"
+  ],
   "background": {
     "scripts": [
       "common/lodash.custom.min.js",
       "background/lib/sha256.js", "background/lib/base64.js",
       "background/lib/github.js", "background/lib/purl.js",
-      "background/js/util.js", "background/js/model.js", "background/js/bg.js"
+      "background/js/model.js", "background/js/bg.js"
     ]
   },
-  "permissions": ["http://github.com/*", "https://github.com/*"]
+  "permissions": [
+    "https://github.com/*",
+    "storage", "unlimitedStorage"
+  ]
 }
