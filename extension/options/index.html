@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Options" ng-csp>
+  <head>
+    <meta charset="utf-8">
+    <title>Rappa Options</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="span4 offset1" ng-controller="OptionsController">
+        <form>
+          <fieldset>
+            <legend>
+              Rappa
+            </legend>
+            <label class="checkbox">
+              <input type="checkbox" ng-model="config.ninja">
+              Ninja reading training Mode</label>
+          </fieldset>
+          <fieldset>
+            <legend>
+              GitHub
+            </legend>
+            <label for="gh_account">Username or Email</label>
+            <input id="gh_account" type="text" placeholder="Username or Email" ng-model="config.github.account">
+            <label for="gh_password">Password</label>
+            <input id="gh_password" type="password" placeholder="Password" ng-model="config.github.password">
+          </fieldset>
+        </form>
+        <button class="btn btn-secondary" type="button" ng-click="defaults()"><i class="icon-trash"></i> Restore Defaults</button>
+        <button class="btn btn-secondary" type="button" ng-click="latest()"><i class="icon-refresh"></i> Restore Latest</button>
+        <button class="btn btn-primary" type="submit" ng-click="apply(config)"><i class="icon-ok icon-white"></i> Apply</button>
+      </div>
+    </div>
+  </body>
+</html>

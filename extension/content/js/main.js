@@ -10,7 +10,7 @@
         content.removeClass(s);
       });
       var s = 3;
-      if (times < 4) {
+      if (-1 < times && times < 4) {
         s = times;
       }
       content.addClass(state[s]);
