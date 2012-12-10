@@ -6,6 +6,9 @@ optionsModule.factory('background', function() {
     },
     getConfig : function(callback) {
       bg.configStore.getConfig(callback);
+    },
+    testGitHub : function(github, callback) {
+      bg.testGitHub(github, callback);
     }
   };
 });

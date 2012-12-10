@@ -125,6 +125,22 @@
       };
     })();
 
+    global.testGitHub = function(credential, callback) {
+      var github = new Github({
+        username : credential.account,
+        password : credential.password,
+        auth : "basic"
+      });
+      var user = github.getUser();
+      user.show(false, function(err, orgs) {
+        if (err) {
+          callback('fail');
+          return;
+        }
+        callback('success');
+      });
+    };
+
     var events = {
       tree : getTree,
       states : updateStates,

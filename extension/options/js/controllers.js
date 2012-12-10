@@ -12,4 +12,16 @@ optionsModule.controller('OptionsController', function($scope, background) {
   $scope.apply = function(config) {
     background.setConfig(config);
   };
+
+  $scope.test = function(github) {
+    if (github) {
+      background.testGitHub(github, function(status) {
+        console.log(status);
+        if (status === 'success') {
+          github.tested = true;
+          $scope.$digest();
+        }
+      });
+    }
+  };
 });

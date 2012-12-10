@@ -27,15 +27,25 @@
             <legend>
               GitHub
             </legend>
-            <label for="gh_account">Username or Email</label>
-            <input id="gh_account" type="text" placeholder="Username or Email" ng-model="config.github.account">
-            <label for="gh_password">Password</label>
-            <input id="gh_password" type="password" placeholder="Password" ng-model="config.github.password">
+            <p class="text-warning" ng-show="!config.github.tested">Account is not authenticated</p>
+            <input type="text" placeholder="Username or Email" ng-model="config.github.account">
+            <div class="input-append">
+              <input type="password" placeholder="Password" ng-model="config.github.password">
+              <button class="btn" ng-click="test(config.github)">
+                Test Auth
+              </button>
+            </div>
           </fieldset>
         </form>
-        <button class="btn btn-secondary" type="button" ng-click="defaults()"><i class="icon-trash"></i> Restore Defaults</button>
-        <button class="btn btn-secondary" type="button" ng-click="latest()"><i class="icon-refresh"></i> Restore Latest</button>
-        <button class="btn btn-primary" type="submit" ng-click="apply(config)"><i class="icon-ok icon-white"></i> Apply</button>
+        <button class="btn btn-secondary" ng-click="defaults()">
+          <i class="icon-trash"></i> Restore Defaults
+        </button>
+        <button class="btn btn-secondary" ng-click="latest()">
+          <i class="icon-refresh"></i> Restore Latest
+        </button>
+        <button class="btn btn-primary" type="submit" ng-click="apply(config)">
+          <i class="icon-ok icon-white"></i> Apply
+        </button>
       </div>
     </div>
   </body>
