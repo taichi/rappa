@@ -11,8 +11,6 @@ lodash csp
 
 # TODO
 
-認証
-
 repo_treeキャッシュの時限削除
 
 テストコード
@@ -25,5 +23,5 @@ css の less化
 ビルドスクリプト
 
 # Aptana Studio 3
-Angular.js のカスタム属性に関するわーニングを消す。
-Went to Preferences > Studio >Validation > HTML and turned off "HTML Tidy" on 
+Angular.js のカスタム属性に関するワーニングを消す方法。
+    Preferences > Studio >Validation > HTML and turned off "HTML Tidy" on 

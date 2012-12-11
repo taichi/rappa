@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="lib/angular.min.js"></script>
+    <script src="/common/lodash.custom.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
@@ -27,23 +28,25 @@
             <legend>
               GitHub
             </legend>
-            <p class="text-warning" ng-show="!config.github.tested">Account is not authenticated</p>
+            <p class="text-warning" ng-show="!config.github.tested">
+              Account is not authenticated
+            </p>
             <input type="text" placeholder="Username or Email" ng-model="config.github.account">
             <div class="input-append">
               <input type="password" placeholder="Password" ng-model="config.github.password">
-              <button class="btn" ng-click="test(config.github)">
+              <button class="btn" ng-click="test(config.github)" ng-disabled="buttons.disabled">
                 Test Auth
               </button>
             </div>
           </fieldset>
         </form>
-        <button class="btn btn-secondary" ng-click="defaults()">
+        <button class="btn btn-secondary" ng-click="defaults()" ng-disabled="buttons.disabled">
           <i class="icon-trash"></i> Restore Defaults
         </button>
-        <button class="btn btn-secondary" ng-click="latest()">
+        <button class="btn btn-secondary" ng-click="latest()" ng-disabled="buttons.disabled">
           <i class="icon-refresh"></i> Restore Latest
         </button>
-        <button class="btn btn-primary" type="submit" ng-click="apply(config)">
+        <button class="btn btn-primary" type="submit" ng-click="apply(config)" ng-disabled="buttons.disabled">
           <i class="icon-ok icon-white"></i> Apply
         </button>
       </div>

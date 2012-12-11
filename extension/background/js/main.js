@@ -117,10 +117,14 @@
       var storage = chrome.storage.sync;
       return {
         getConfig : function(callback) {
-          storage.get(callback);
+          storage.get(function(config) {
+            callback(chrome.runtime.lastError, config);
+          });
         },
         setConfig : function(config, callback) {
-          storage.set(config, callback);
+          storage.set(config, function() {
+            callback(chrome.runtime.lastError);
+          });
         }
       };
     })();
@@ -132,13 +136,7 @@
         auth : "basic"
       });
       var user = github.getUser();
-      user.show(false, function(err, orgs) {
-        if (err) {
-          callback('fail');
-          return;
-        }
-        callback('success');
-      });
+      user.show(false, callback);
     };
 
     var events = {

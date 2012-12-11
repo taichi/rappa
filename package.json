@@ -1,9 +1,12 @@
 {
   "name": "rappa",
   "author": "SATO taichi <ryushi@gmail.com>",
+  "version": "0.0.1",
+  "private" : true,
   "devDependencies": {
     "grunt-cli": ">= 0.1.0",
     "handlebars": ">= 1.0.7",
-    "lodash": ">= 0.10.0"
+    "lodash": ">= 0.10.0",
+    "q" : "0.8.11"
   }
 }
