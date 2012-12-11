@@ -129,4 +129,5 @@
       });
     };
     requestTree();
+    // TODO ディレクトリクリックからのpjaxに追従してrequestTreeする。
   }(this));

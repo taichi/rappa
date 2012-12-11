@@ -4,7 +4,6 @@
 
     var handleTimes = function(response) {
       var times = Number(response.times);
-      console.log('TIMES ' + times);
       var content = $('#files .highlight:visible');
       $(state).each(function(i, s) {
         content.removeClass(s);
