@@ -9,13 +9,14 @@
     <script src="lib/angular.min.js"></script>
     <script src="/common/lodash.custom.min.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
+    <script src="js/chrome.js"></script>
     <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
   </head>
   <body>
     <div class="row-fluid">
       <div class="span4 offset1" ng-controller="OptionsController">
-        <form>
+        <form name="configForm">
           <fieldset>
             <legend>
               Rappa
@@ -31,17 +32,18 @@
             <p class="text-warning" ng-show="!config.github.tested">
               Account is not authenticated
             </p>
-            <input type="text" placeholder="Username or Email" ng-model="config.github.account">
+            <input type="text" placeholder="Username or Email" name="account" ng-model="config.github.account" required>
             <div class="input-append">
-              <input type="password" placeholder="Password" ng-model="config.github.password">
-              <button class="btn" ng-click="test(config.github)" ng-disabled="buttons.disabled">
+              <input type="password" placeholder="Password" name="password" ng-model="config.github.password" required>
+              <button class="btn" ng-click="test(config.github)"
+              ng-disabled="buttons.disabled || !configForm.$valid">
                 Test Auth
               </button>
             </div>
           </fieldset>
         </form>
-        <button class="btn btn-secondary" ng-click="defaults()" ng-disabled="buttons.disabled">
-          <i class="icon-trash"></i> Restore Defaults
+        <button class="btn btn-secondary" ng-click="clear()" ng-disabled="buttons.disabled">
+          <i class="icon-trash"></i> Clear Settings
         </button>
         <button class="btn btn-secondary" ng-click="latest()" ng-disabled="buttons.disabled">
           <i class="icon-refresh"></i> Restore Latest

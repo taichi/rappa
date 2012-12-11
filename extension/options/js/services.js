@@ -1,37 +1,42 @@
-optionsModule.factory('background', function($q) {
-  var bg = chrome.extension.getBackgroundPage();
-  var defaultDefer = function(deferred) {
-    return function() {
+optionsModule.factory('service', function(background, $q) {
+  var resolve = function(scope, deferred) {
+    return function(/* arguments */) {
       var err = _.first(arguments);
-      if (err) {
-        deffered.reject(err);
-      } else {
-        deferred.resolve(_.rest(arguments));
-      }
+      var args = _.rest(arguments);
+      scope.$apply(function() {
+        if (err) {
+          deferred.reject(err);
+        } else {
+          deferred.resolve.apply(deferred, args);
+        }
+      });
     };
   };
-  var makeFn = function(fn) {
+  var defer = function(fn) {
     var deferred = $q.defer();
-    _.delay(function() {
-      fn(deferred);
-    });
+    _.delay(_.partial(fn, deferred));
     return deferred.promise;
   };
 
   return {
-    setConfig : _.compose(makeFn, function(config) {
+    setConfig : _.compose(defer, function(scope, config) {
       return function(deferred) {
-        bg.configStore.setConfig(config, defaultDefer(deferred));
+        background.configStore.set(config, resolve(scope, deferred));
       };
     }),
-    getConfig : _.compose(makeFn, function() {
+    getConfig : _.compose(defer, function(scope) {
       return function(deferred) {
-        bg.configStore.getConfig(defaultDefer(deferred));
+        background.configStore.get(resolve(scope, deferred));
       };
     }),
-    testGitHub : _.compose(makeFn, function(github) {
+    clearConfig : _.compose(defer, function(scope) {
       return function(deferred) {
-        bg.testGitHub(github, defaultDefer(deferred));
+        background.configStore.clear(resolve(scope, deferred));
+      };
+    }),
+    testGitHub : _.compose(defer, function(scope, github) {
+      return function(deferred) {
+        background.testGitHub(github, resolve(scope, deferred));
       };
     })
   };

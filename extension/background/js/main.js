@@ -18,7 +18,7 @@
     var massacre = new global.Massacre();
 
     var getTimes = function(request, sender, response) {
-      global.configStore.getConfig(function(config) {
+      global.configStore.get(function(err, config) {
         response({
           times : config.ninja === true ? massacre.getTimes(request.url) : -1
         });
@@ -55,7 +55,7 @@
 
     var getTree = ( function() {
         var newTree = function(request, callback) {
-          global.configStore.getConfig(function(config) {
+          global.configStore.get(function(err, config) {
             var gh = config.github || {};
             var github = new Github({
               username : gh.account,
@@ -116,13 +116,19 @@
     global.configStore = (function() {
       var storage = chrome.storage.sync;
       return {
-        getConfig : function(callback) {
+        get : function(callback) {
           storage.get(function(config) {
+            config.github = config.github || {};
             callback(chrome.runtime.lastError, config);
           });
         },
-        setConfig : function(config, callback) {
+        set : function(config, callback) {
           storage.set(config, function() {
+            callback(chrome.runtime.lastError);
+          });
+        },
+        clear : function(callback) {
+          storage.clear(function() {
             callback(chrome.runtime.lastError);
           });
         }

@@ -1,42 +1,48 @@
-optionsModule.controller('OptionsController', function($scope, background) {
+optionsModule.controller('OptionsController', function($scope, $q, service) {
   $scope.buttons = {
     disabled : false
   };
 
+  var defaults = function() {
+    $scope.config = {
+      github : {}
+    };
+  };
+  defaults();
+
   var enabler = function(fn) {
     $scope.buttons.disabled = true;
     return fn().then(function() {
-      $scope.$apply(function() {
-        $scope.buttons.disabled = false;
-      });
+      $scope.buttons.disabled = false;
     });
   };
-  $scope.defaults = function() {
-    $scope.config = {};
-  };
 
-  $scope.latest = _.compose(function(promise) {
-    promise.then(function() {
-      $scope.$apply(function() {
+  $scope.clear = _.compose(enabler, function() {
+    return function() {
+      return service.clearConfig($scope).then(defaults);
+    };
+  });
+
+  $scope.latest = _.compose(enabler, function() {
+    return function() {
+      return service.getConfig($scope).then(function(config) {
         $scope.config = config;
       });
-    });
-  }, _.partial(enabler, background.getConfig));
+    };
+  });
   $scope.latest();
 
-  $scope.apply = _.compose(function(config) {
-    return _.partial(background.setConfig, config);
-  }, enabler);
+  $scope.apply = _.compose(enabler, function(config) {
+    return _.partial(service.setConfig, $scope, config);
+  });
 
-  $scope.test = function(github) {
-    if (github) {
-      $scope.buttons.disabled = true;
-      background.testGitHub(github, function(status) {
-        $scope.$apply(function() {
-          github.tested = status === 'success';
-          $scope.buttons.disabled = false;
-        });
+  $scope.test = _.compose(enabler, function(github) {
+    return function() {
+      return service.testGitHub($scope, github).then(function() {
+        github.tested = true;
+      }, function() {
+        github.tested = false;
       });
-    }
-  };
+    };
+  });
 });
