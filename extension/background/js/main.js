@@ -27,14 +27,19 @@
     };
 
     var setPower = function(request, sender, response) {
-      var url = request.url;
-      var times = massacre.getTimes(url);
-      if (times < 1) {
-        massacre.addPower(Number(request.line));
-      }
-      massacre.addTimes(url);
-      updateBadge(massacre.getPower());
-      getTimes(request, sender, response);
+      global.configStore.get(function(err, config) {
+        if (config.ninja) {
+          var url = request.url;
+          var times = massacre.getTimes(url);
+          if (times < 1) {
+            massacre.addPower(Number(request.line));
+          }
+          massacre.addTimes(url);
+          updateBadge(massacre.getPower());
+        }
+        getTimes(request, sender, response);
+      });
+      return true;
     };
 
     var treeCache = ( function() {
