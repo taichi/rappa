@@ -6,15 +6,19 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="lib/angular.min.js"></script>
     <script src="/common/lodash.custom.min.js"></script>
+    <script src="/common/jquery-1.8.2.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/angular.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/chrome.js"></script>
+    <script src="js/directives.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
   </head>
   <body>
     <div class="row-fluid">
+      <div alert></div>
       <div class="span4 offset1" ng-controller="OptionsController">
         <form name="configForm">
           <fieldset>
@@ -29,9 +33,6 @@
             <legend>
               GitHub
             </legend>
-            <p class="text-warning" ng-show="!config.github.tested">
-              Account is not authenticated
-            </p>
             <input type="text" placeholder="Username or Email" name="account" ng-model="config.github.account" required>
             <div class="input-append">
               <input type="password" placeholder="Password" name="password" ng-model="config.github.password" required>

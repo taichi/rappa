@@ -14,7 +14,7 @@ optionsModule.factory('service', function(background, $q) {
   };
   var defer = function(fn) {
     var deferred = $q.defer();
-    _.delay(_.partial(fn, deferred));
+    _.delay(fn, 0, deferred);
     return deferred.promise;
   };
 

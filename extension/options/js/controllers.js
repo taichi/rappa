@@ -1,4 +1,4 @@
-optionsModule.controller('OptionsController', function($scope, $q, service) {
+optionsModule.controller('OptionsController', function($rootScope, $scope, $q, service) {
   $scope.buttons = {
     disabled : false
   };
@@ -23,17 +23,33 @@ optionsModule.controller('OptionsController', function($scope, $q, service) {
     };
   });
 
+  var unAuth = function(github) {
+    if (github.tested == false) {
+      $rootScope.$broadcast('event:alert', {
+        message : 'GitHub Account is not authenticated'
+      });
+    }
+  };
   $scope.latest = _.compose(enabler, function() {
     return function() {
       return service.getConfig($scope).then(function(config) {
-        $scope.config = config;
+        return $scope.config = config;
+      }).then(function(config) {
+        unAuth(config.github);
       });
     };
   });
   $scope.latest();
 
   $scope.apply = _.compose(enabler, function(config) {
-    return _.partial(service.setConfig, $scope, config);
+    return function() {
+      return service.setConfig($scope, config).then(function() {
+        $rootScope.$broadcast('event:alert', {
+          type : 'info',
+          message : 'configuration is stored.'
+        });
+      });
+    };
   });
 
   $scope.test = _.compose(enabler, function(github) {
@@ -42,7 +58,7 @@ optionsModule.controller('OptionsController', function($scope, $q, service) {
         github.tested = true;
       }, function() {
         github.tested = false;
-      });
+      }).then(_.partial(unAuth, github));
     };
   });
 });
