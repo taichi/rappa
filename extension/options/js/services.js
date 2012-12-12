@@ -1,9 +1,9 @@
-optionsModule.factory('service', function(background, $q) {
-  var resolve = function(scope, deferred) {
+optionsModule.factory('service', function(background, $q, $timeout) {
+  var resolve = function(deferred) {
     return function(/* arguments */) {
       var err = _.first(arguments);
       var args = _.rest(arguments);
-      scope.$apply(function() {
+      $timeout(function() {
         if (err) {
           deferred.reject(err);
         } else {
@@ -14,30 +14,22 @@ optionsModule.factory('service', function(background, $q) {
   };
   var defer = function(fn) {
     var deferred = $q.defer();
-    _.delay(fn, 0, deferred);
+    $timeout(_.partial(fn, deferred));
     return deferred.promise;
   };
 
   return {
-    setConfig : _.compose(defer, function(scope, config) {
-      return function(deferred) {
-        background.configStore.set(config, resolve(scope, deferred));
-      };
+    setConfig : _.compose(defer, function(config) {
+      return _.compose(_.partial(background.configStore.set, config), resolve);
     }),
-    getConfig : _.compose(defer, function(scope) {
-      return function(deferred) {
-        background.configStore.get(resolve(scope, deferred));
-      };
+    getConfig : _.compose(defer, function() {
+      return _.compose(background.configStore.get, resolve);
     }),
-    clearConfig : _.compose(defer, function(scope) {
-      return function(deferred) {
-        background.configStore.clear(resolve(scope, deferred));
-      };
+    clearConfig : _.compose(defer, function() {
+      return _.compose(background.configStore.clear, resolve);
     }),
-    testGitHub : _.compose(defer, function(scope, github) {
-      return function(deferred) {
-        background.testGitHub(github, resolve(scope, deferred));
-      };
+    testGitHub : _.compose(defer, function(github) {
+      return _.compose(_.partial(background.testGitHub, github), resolve);
     })
   };
 });

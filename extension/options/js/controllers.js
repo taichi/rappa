@@ -1,4 +1,4 @@
-optionsModule.controller('OptionsController', function($rootScope, $scope, $q, service) {
+optionsModule.controller('OptionsController', function($scope, $q, service) {
   $scope.buttons = {
     disabled : false
   };
@@ -19,20 +19,20 @@ optionsModule.controller('OptionsController', function($rootScope, $scope, $q, s
 
   $scope.clear = _.compose(enabler, function() {
     return function() {
-      return service.clearConfig($scope).then(defaults);
+      return service.clearConfig().then(defaults);
     };
   });
 
   var unAuth = function(github) {
-    if (github.tested == false) {
-      $rootScope.$broadcast('event:alert', {
+    if (!github.tested) {
+      $scope.$broadcast('event:alert', {
         message : 'GitHub Account is not authenticated'
       });
     }
   };
   $scope.latest = _.compose(enabler, function() {
     return function() {
-      return service.getConfig($scope).then(function(config) {
+      return service.getConfig().then(function(config) {
         return $scope.config = config;
       }).then(function(config) {
         unAuth(config.github);
@@ -43,8 +43,8 @@ optionsModule.controller('OptionsController', function($rootScope, $scope, $q, s
 
   $scope.apply = _.compose(enabler, function(config) {
     return function() {
-      return service.setConfig($scope, config).then(function() {
-        $rootScope.$broadcast('event:alert', {
+      return service.setConfig(config).then(function() {
+        $scope.$broadcast('event:alert', {
           type : 'info',
           message : 'configuration is stored.'
         });
@@ -54,7 +54,7 @@ optionsModule.controller('OptionsController', function($rootScope, $scope, $q, s
 
   $scope.test = _.compose(enabler, function(github) {
     return function() {
-      return service.testGitHub($scope, github).then(function() {
+      return service.testGitHub(github).then(function() {
         github.tested = true;
       }, function() {
         github.tested = false;
