@@ -1,0 +1,8 @@
+{
+  "name" : {
+    "message": "Rappa"
+  },
+  "description" : {
+    "message": "This extension supports code reading method used by taichi"
+  }
+}
