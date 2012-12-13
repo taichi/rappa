@@ -1,1 +1,1 @@
-var optionsModule = angular.module('Options', []);
+angular.module('Options', ['chrome']);

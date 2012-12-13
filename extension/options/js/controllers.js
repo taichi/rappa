@@ -1,4 +1,5 @@
-optionsModule.controller('OptionsController', function($scope, $q, service) {
+angular.module('Options').controller('OptionsController', ["$scope", "service",
+function($scope, service) {
   $scope.buttons = {
     disabled : false
   };
@@ -61,4 +62,4 @@ optionsModule.controller('OptionsController', function($scope, $q, service) {
       }).then(_.partial(unAuth, github));
     };
   });
-});
+}]);

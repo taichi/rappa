@@ -1,4 +1,4 @@
-optionsModule.directive('alert', function($compile, $timeout) {
+angular.module('Options').directive('alert', ['$compile', '$timeout', function($compile, $timeout) {
   return {
     restrict : 'A',
     link : function(scope, element, attr) {
@@ -23,4 +23,4 @@ optionsModule.directive('alert', function($compile, $timeout) {
       });
     }
   };
-});
+}]);

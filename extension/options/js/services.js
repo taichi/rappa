@@ -1,4 +1,5 @@
-optionsModule.factory('service', function(background, $q, $timeout) {
+angular.module('Options').factory('service', ["chrome.background", "$q", "$timeout",
+function(background, $q, $timeout) {
   var resolve = function(deferred) {
     return function(/* arguments */) {
       var err = _.first(arguments);
@@ -32,4 +33,4 @@ optionsModule.factory('service', function(background, $q, $timeout) {
       return _.compose(_.partial(background.testGitHub, github), resolve);
     })
   };
-});
+}]);
