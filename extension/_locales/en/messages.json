@@ -23,7 +23,13 @@
   "restore_latest": {
     "message": "Restore Latest"
   },
-  "apply":{
+  "apply": {
     "message": "Apply"
+  },
+  "not_auth": {
+    "message": "GitHub Account is not authenticated."
+  },
+  "conf_stored": {
+    "message": "Configuration is stored."
   }
 }

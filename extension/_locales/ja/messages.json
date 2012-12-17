@@ -1,11 +1,11 @@
 {
-  "name" : {
+  "name": {
     "message": "乱破"
   },
-  "description" : {
+  "description": {
     "message": "太一によるコードリーディング手法をサポートする拡張です。"
   },
-    "training_mode": {
+  "training_mode": {
     "message": "トレーニングモード"
   },
   "github_account": {
@@ -23,8 +23,13 @@
   "restore_latest": {
     "message": "設定の復元"
   },
-  "apply":{
+  "apply": {
     "message": "決定"
+  },
+  "not_auth": {
+    "message": "GitHub アカウントは認証されていません。"
+  },
+  "conf_stored": {
+    "message": "設定を保存しました。"
   }
-
 }

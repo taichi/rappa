@@ -27,7 +27,7 @@ function($scope, service) {
   var unAuth = function(github) {
     if (!github.tested) {
       $scope.$broadcast('event:alert', {
-        message : 'GitHub Account is not authenticated'
+        message_key : 'not_auth'
       });
     }
   };
@@ -47,7 +47,7 @@ function($scope, service) {
       return service.setConfig(config).then(function() {
         $scope.$broadcast('event:alert', {
           type : 'info',
-          message : 'configuration is stored.'
+          message_key : 'conf_stored'
         });
       });
     };

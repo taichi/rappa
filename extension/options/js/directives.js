@@ -1,5 +1,5 @@
-angular.module('Options').directive('alert', ['$compile', '$timeout',
-function($compile, $timeout) {
+angular.module('Options').directive('alert', ['$compile', '$timeout',"translate",
+function($compile, $timeout, translate) {
   return {
     restrict : 'A',
     link : function(scope, element, attr) {
@@ -10,7 +10,7 @@ function($compile, $timeout) {
           cache[config.message] = true;
           var child = scope.$new(true);
           child.type = _.isUndefined(config.type) ? ''/*alert-warn*/ : 'alert-' + config.type;
-          child.message = config.message;
+          child.message = translate(config.message_key);
           var newone = $compile(template)(child);
           element.append(newone);
           var close = _.bind(newone.trigger, newone, 'close');
