@@ -9,8 +9,8 @@ function($provide) {
 }]);
 angular.module('i18n.directives', ['i18n'], ['$compileProvider',
 function($compileProvider) {
-  $compileProvider.directive('translate', ['$compile', 'translate',
-  function($compile, translate) {
+  $compileProvider.directive('translate', ['translate',
+  function(translate) {
     return {
       priority : 10, //Should be evaluated befor e. G. pluralize
       restrict : 'E',
@@ -20,8 +20,8 @@ function($compileProvider) {
       }
     };
   }]);
-  $compileProvider.directive('translate', ['$parse', 'translate',
-  function($parse, translate) {
+  $compileProvider.directive('translate', ['translate',
+  function(translate) {
     return {
       priority : 10,
       restrict : 'A',
