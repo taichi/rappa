@@ -4,5 +4,27 @@
   },
   "description" : {
     "message": "太一によるコードリーディング手法をサポートする拡張です。"
+  },
+    "training_mode": {
+    "message": "トレーニングモード"
+  },
+  "github_account": {
+    "message": "ユーザ名 もしくは メールアドレス"
+  },
+  "password": {
+    "message": "パスワード"
+  },
+  "test_auth": {
+    "message": "認証テスト"
+  },
+  "clear_settings": {
+    "message": "設定の削除"
+  },
+  "restore_latest": {
+    "message": "設定の復元"
+  },
+  "apply":{
+    "message": "決定"
   }
+
 }

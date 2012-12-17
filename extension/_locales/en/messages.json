@@ -1,8 +1,29 @@
 {
-  "name" : {
+  "name": {
     "message": "Rappa"
   },
-  "description" : {
+  "description": {
     "message": "This extension supports code reading method used by taichi"
+  },
+  "training_mode": {
+    "message": "Ninja reading training Mode"
+  },
+  "github_account": {
+    "message": "Username or Email"
+  },
+  "password": {
+    "message": "Password"
+  },
+  "test_auth": {
+    "message": "Test Auth"
+  },
+  "clear_settings": {
+    "message": "Clear Settings"
+  },
+  "restore_latest": {
+    "message": "Restore Latest"
+  },
+  "apply":{
+    "message": "Apply"
   }
 }
