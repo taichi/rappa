@@ -26,6 +26,9 @@
   "apply": {
     "message": "決定"
   },
+  "already_auth" : {
+    "message": "GitHub アカウントは認証済です。"
+  },
   "not_auth": {
     "message": "GitHub アカウントは認証されていません。"
   },

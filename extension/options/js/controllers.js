@@ -24,19 +24,18 @@ function($scope, service) {
     };
   });
 
-  var unAuth = function(github) {
-    if (!github.tested) {
-      $scope.$broadcast('event:alert', {
-        message_key : 'not_auth'
-      });
-    }
+  var auth_messages = function(github) {
+    $scope.$broadcast('event:alert', {
+      type : github.tested ? 'info' : '',
+      message_key : github.tested ? 'already_auth' : 'not_auth'
+    });
   };
   $scope.latest = _.compose(enabler, function() {
     return function() {
       return service.getConfig().then(function(config) {
         return $scope.config = config;
       }).then(function(config) {
-        unAuth(config.github);
+        auth_messages(config.github);
       });
     };
   });
@@ -59,7 +58,7 @@ function($scope, service) {
         github.tested = true;
       }, function() {
         github.tested = false;
-      }).then(_.partial(unAuth, github));
+      }).then(_.partial(auth_messages, github));
     };
   });
 }]);

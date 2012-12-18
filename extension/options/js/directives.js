@@ -6,8 +6,8 @@ function($compile, $timeout, translate) {
       var template = '<div class="alert {{type}} hide"><button type="button" class="close" data-dismiss="alert">&times;</button>{{message}}</div>';
       var cache = {};
       scope.$on('event:alert', function(event, config) {
-        if (_.isUndefined(cache[config.message])) {
-          cache[config.message] = true;
+        if (_.isUndefined(cache[config.message_key])) {
+          cache[config.message_key] = true;
           var child = scope.$new(true);
           child.type = _.isUndefined(config.type) ? ''/*alert-warn*/ : 'alert-' + config.type;
           child.message = translate(config.message_key);

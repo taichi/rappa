@@ -26,6 +26,9 @@
   "apply": {
     "message": "Apply"
   },
+  "already_auth" : {
+    "message": "GitHub Account is authenticated."
+  },
   "not_auth": {
     "message": "GitHub Account is not authenticated."
   },

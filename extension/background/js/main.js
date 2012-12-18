@@ -117,27 +117,19 @@
       treeCache.setCache(request, request.tree);
       response('ok');
     };
-
-    global.configStore = (function() {
-      var storage = chrome.storage.sync;
+    
+    global.configStore = (function(){
+      var storage = global.storage.sync;
       return {
-        get : function(callback) {
-          storage.get(function(config) {
+        get : function(cb) {
+          storage.get(function(err, config) {
             config.github = config.github || {};
-            callback(chrome.runtime.lastError, config);
+            cb(err, config);
           });
         },
-        set : function(config, callback) {
-          storage.set(config, function() {
-            callback(chrome.runtime.lastError);
-          });
-        },
-        clear : function(callback) {
-          storage.clear(function() {
-            callback(chrome.runtime.lastError);
-          });
-        }
-      };
+        set : storage.set,
+        clear: storage.clear
+      }
     })();
 
     global.testGitHub = function(credential, callback) {
