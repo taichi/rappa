@@ -1,35 +1,36 @@
 ( function(global) {
-    var wrapArgs = function(args) {
-      var ary = [].slice.call(args);
-      var init = _.initial(ary);
-      var callback = _.last(ary);
-      init.push(function(/* arguments */) {
-        callback.apply(false, _.union([chrome.runtime.lastError], [].slice.call(arguments)));
-      });
-      return init;
+    var addLastError = function(callback, value) {
+      callback.call(global, chrome.runtime.lastError, value);
     };
-    var wrap = function(storage) {
+    var wrap = function(storage, schemaName) {
       return {
-        get : function(/* arguments */) {
-          storage.get.apply(storage, wrapArgs(arguments));
+        get : function(callback) {
+          storage.get(schemaName, function(value) {
+            var model = value[schemaName] || {};
+            addLastError(callback, model);
+          });
         },
-        getBytesInUse : function(/* arguments */) {
-          storage.getBytesInUse.apply(storage, wrapArgs(arguments));
+        getBytesInUse : function(callback) {
+          storage.getBytesInUse(schemaName, function(bytesInUse) {
+            addLastError(callback, bytesInUse);
+          });
         },
-        set : function(/* arguments */a, b) {
-          storage.set.apply(storage, wrapArgs(arguments));
+        set : function(model, callback) {
+          var value = {};
+          value[schemaName] = model;
+          storage.set(value, _.partial(addLastError, callback));
         },
-        remove : function(/* arguments */) {
-          storage.remove.apply(storage, wrapArgs(arguments));
+        remove : function(callback) {
+          storage.remove(schemaName, _.partial(addLastError, callback));
         },
-        clear : function(/* arguments */) {
-          storage.clear.apply(storage, wrapArgs(arguments));
+        clear : function(callback) {
+          storage.clear(_.partial(addLastError, callback));
         }
       }
     };
     global.storage = {
-      local : wrap(chrome.storage.local),
-      sync : wrap(chrome.storage.sync),
-      managed : wrap(chrome.storage.managed)
+      local : _.partial(wrap, chrome.storage.local),
+      sync : _.partial(wrap, chrome.storage.sync),
+      managed : _.partial(wrap, chrome.storage.managed)
     };
   }(this));

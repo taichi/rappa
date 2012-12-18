@@ -1,20 +1,18 @@
 ( function(global) {
-    var storage = global.storage.local;
+    var storage = global.storage.local('massacre');
     var loadModel = function(callback) {
-      storage.get('massacre', function(err, value) {
+      storage.get(function(err, model) {
         if (err) {
           throw err;
         }
-        value.urls = value['urls'] || {};
-        value.power = value['power'] || 0;
-        callback(value);
+        model.urls = model['urls'] || {};
+        model.power = model['power'] || 0;
+        callback(model);
       });
     };
 
     var saveModel = function(model, callback) {
-      storage.set({
-        massacre : model
-      }, function(err) {
+      storage.set(model, function(err) {
         if (err) {
           throw err;
         }

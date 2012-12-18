@@ -1,6 +1,6 @@
 ( function(global) {
     global.configStore = (function() {
-      var storage = global.storage.sync;
+      var storage = global.storage.sync('config');
       return {
         get : function(cb) {
           storage.get(function(err, config) {
@@ -9,7 +9,7 @@
           });
         },
         set : storage.set,
-        clear : storage.clear
+        clear : storage.remove
       }
     })();
 
