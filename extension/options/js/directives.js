@@ -10,6 +10,7 @@ function($compile, $timeout, translate) {
           cache[config.message_key] = true;
           var child = scope.$new(true);
           child.type = _.isUndefined(config.type) ? ''/*alert-warn*/ : 'alert-' + config.type;
+          child.message_key = config.message_key;
           child.message = translate(config.message_key);
           var newone = $compile(template)(child);
           element.append(newone);
@@ -18,7 +19,7 @@ function($compile, $timeout, translate) {
           newone.fadeIn(1000, _.partial($timeout, fadeOut, 3000));
           newone.one('close', child, function(event) {
             event.data.$destroy();
-            delete cache[event.data.message];
+            delete cache[event.data.message_key];
           });
         }
       });

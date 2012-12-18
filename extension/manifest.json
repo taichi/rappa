@@ -32,7 +32,8 @@
       "common/lodash.custom.min.js",
       "background/lib/sha256.js", "background/lib/base64.js",
       "background/lib/github.js", "background/lib/purl.js",
-      "background/js/storage.js", "background/js/model.js", "background/js/main.js"
+      "background/js/storage.js", "background/js/model.js", "background/js/main.js",
+      "background/js/events/massacre.js", "background/js/events/tree.js"
     ]
   },
   "permissions": [

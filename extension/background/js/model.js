@@ -1,39 +1,69 @@
-// TODO ストレージする的なアレ。
-// IndexedDBかWebStorageどっちを使うか…
 ( function(global) {
-    global.Massacre = function() {
-      this.urls = {};
-      this.power = 0;
-      var self = this;
+    var storage = global.storage.local;
+    var loadModel = function(callback) {
+      storage.get('massacre', function(err, value) {
+        if (err) {
+          throw err;
+        }
+        value.urls = value['urls'] || {};
+        value.power = value['power'] || 0;
+        callback(value);
+      });
+    };
 
-      var calcHash = function(url) {
-        var u = purl(url).attr('path');
-        return CryptoJS.SHA256(u);
+    var saveModel = function(model, callback) {
+      storage.set({
+        massacre : model
+      }, function(err) {
+        if (err) {
+          throw err;
+        }
+        callback();
+      });
+    };
+
+    var calcHash = function(url) {
+      var u = purl(url).attr('path');
+      return CryptoJS.SHA256(u);
+    };
+
+    var getTimes = function(url, callback) {
+      loadModel(function(model) {
+        var hash = calcHash(url);
+        var times = model.urls[hash];
+        if (_.isUndefined(times)) {
+          times = 0;
+        }
+        callback(hash, model, times);
+      });
+    };
+
+    global.massacre = {
+      getTimes : function(url, callback) {
+        getTimes(url, function(hash, model, times) {
+          callback(times);
+        });
+      },
+      addTimes : function(url, callback) {
+        getTimes(url, function(hash, model, times) {
+          model.urls[hash] = ++times;
+          saveModel(model, function() {
+            callback(times);
+          });
+        });
+      },
+      addPower : function(power, callback) {
+        loadModel(function(model) {
+          model.power += power;
+          saveModel(model, function() {
+            callback(model.power);
+          });
+        });
+      },
+      getPower : function(callback) {
+        loadModel(function(model) {
+          callback(model.power);
+        });
       }
-      this.getTimes = function(url) {
-        var hash = calcHash(url);
-        var times = self.urls[hash];
-        if (_.isUndefined(times)) {
-          times = 0;
-        }
-        return times;
-      };
-
-      this.addTimes = function(url) {
-        var hash = calcHash(url);
-        var times = self.urls[hash];
-        if (_.isUndefined(times)) {
-          times = 0;
-        }
-        self.urls[hash] = ++times;
-      };
-
-      this.addPower = function(lines) {
-        self.power += lines;
-      };
-
-      this.getPower = function() {
-        return self.power;
-      };
     };
   }(this));

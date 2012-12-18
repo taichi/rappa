@@ -2,8 +2,9 @@ angular.module('Options').factory('service', ["chrome.background", "$q", "$timeo
 function(background, $q, $timeout) {
   var resolve = function(deferred) {
     return function(/* arguments */) {
-      var err = _.first(arguments);
-      var args = _.rest(arguments);
+      var ary = [].slice.call(arguments);
+      var err = _.first(ary);
+      var args = _.rest(ary);
       $timeout(function() {
         if (err) {
           deferred.reject(err);
