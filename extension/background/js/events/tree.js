@@ -1,18 +1,17 @@
 ( function(global) {
     var treeCache = ( function() {
-        var self = {};
         var cache = {};
-        // TODO persistent
         var makeCacheKey = function(request) {
           return [request.user, request.repo, request.hash].join('/');
         };
-        self.getCache = function(request) {
-          return cache[makeCacheKey(request)];
+        return {
+          getCache : function(request) {
+            return cache[makeCacheKey(request)];
+          },
+          setCache : function(request, value) {
+            cache[makeCacheKey(request)] = value;
+          }
         };
-        self.setCache = function(request, value) {
-          cache[makeCacheKey(request)] = value;
-        };
-        return self;
       }());
 
     var getTree = ( function() {
