@@ -15,8 +15,12 @@ function($compileProvider) {
       priority : 10, //Should be evaluated befor e. G. pluralize
       restrict : 'E',
       link : function(scope, element, attrs) {
-        var txt = translate(attrs.key);
-        element.replaceWith( txt ? txt : element.text());
+        scope.$watch(function() {
+          var txt = translate(attrs.key);
+          if (txt) {
+            element.text(txt);
+          }
+        });
       }
     };
   }]);

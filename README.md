@@ -32,10 +32,15 @@ repo_treeキャッシュの時限削除
       一部のフレームワークは例外的な扱いをしても良さそう。
     - http://efcl.info/2012/1209/res3166/
     - package.json
+        - https://npmjs.org/
     - build.gradle
     - pom.xml
+        - http://mvnrepository.com/
     - Gemfile
+        - http://rubygems.org/
         - https://github.com/laserlemon/gemnasium-parser
+    - setup.py
+        - http://pypi.python.org/pypi
     - Scons
     - Waf
     - ...
