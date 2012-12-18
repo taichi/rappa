@@ -61,4 +61,26 @@ function($scope, service) {
       }).then(_.partial(auth_messages, github));
     };
   });
+
+  $scope.getMetrix = _.compose(enabler, function() {
+    return function() {
+      return service.getMetrix().then(function(metrix) {
+        $scope.power = metrix.power;
+        $scope.urls = metrix.urls;
+      });
+    };
+  });
+  $scope.getMetrix();
+
+  $scope.clearPower = _.compose(enabler, function() {
+    return function() {
+      return service.clearPower().then(function() {
+        $scope.$broadcast('event:alert', {
+          type : 'info',
+          message_key : 'power_clear'
+        });
+      }).then($scope.getMetrix);
+    };
+  });
+
 }]);

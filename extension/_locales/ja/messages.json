@@ -8,6 +8,18 @@
   "training_mode": {
     "message": "トレーニングモード"
   },
+  "caption_ninja_status": {
+    "message": "訓練の成果"
+  },
+  "ninja_power": {
+    "message": "スコア"
+  },
+  "number_of_urls": {
+    "message": "訪れたURLの数"
+  },
+  "clear_results": {
+    "message": "訓練の成果をリセットする"
+  },
   "github_account": {
     "message": "ユーザ名 もしくは メールアドレス"
   },
@@ -26,7 +38,7 @@
   "apply": {
     "message": "決定"
   },
-  "already_auth" : {
+  "already_auth": {
     "message": "GitHub アカウントは認証済です。"
   },
   "not_auth": {
@@ -34,5 +46,8 @@
   },
   "conf_stored": {
     "message": "設定を保存しました。"
+  },
+  "power_clear": {
+    "message": "訓練の成果をリセットしました。"
   }
 }

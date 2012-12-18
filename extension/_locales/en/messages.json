@@ -8,6 +8,18 @@
   "training_mode": {
     "message": "Ninja reading training Mode"
   },
+  "caption_ninja_status": {
+    "message": "Your Ninja Status"
+  },
+  "ninja_power": {
+    "message": "Training Score"
+  },
+  "number_of_urls": {
+    "message": "Number of visit Urls"
+  },
+  "clear_results": {
+    "message": "Reset Training Results"
+  },
   "github_account": {
     "message": "Username or Email"
   },
@@ -26,7 +38,7 @@
   "apply": {
     "message": "Apply"
   },
-  "already_auth" : {
+  "already_auth": {
     "message": "GitHub Account is authenticated."
   },
   "not_auth": {
@@ -34,5 +46,8 @@
   },
   "conf_stored": {
     "message": "Configuration is stored."
+  },
+  "power_clear": {
+    "message": "Training Results are reset."
   }
 }

@@ -35,6 +35,15 @@
         callback(hash, model, times);
       });
     };
+    
+    var getMetrix = function(callback) {
+      loadModel(function(model) {
+        var metrix = {};
+        metrix.power = model.power;
+        metrix.urls = _.keys(model.urls).length;
+        callback(false, metrix);
+      });
+    };
 
     global.massacre = {
       getTimes : function(url, callback) {
@@ -62,6 +71,8 @@
         loadModel(function(model) {
           callback(model.power);
         });
-      }
+      },
+      getMetrix : getMetrix,
+      clear : storage.remove
     };
   }(this));

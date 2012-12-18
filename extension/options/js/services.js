@@ -32,6 +32,12 @@ function(background, $q, $timeout) {
     }),
     testGitHub : _.compose(defer, function(github) {
       return _.compose(_.partial(background.testGitHub, github), resolve);
+    }),
+    getMetrix : _.compose(defer, function() {
+      return _.compose(background.massacre.getMetrix, resolve);
+    }),
+    clearPower : _.compose(defer, function() {
+      return _.compose(background.massacre.clear, resolve);
     })
   };
 }]);

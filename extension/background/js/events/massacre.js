@@ -67,7 +67,5 @@
     global.events.line = setPower;
     global.events.times = getTimes;
 
-    massacre.getPower(function(power) {
-      updateBadge(power);
-    });
+    massacre.getPower(updateBadge);
   }(this));
