@@ -11,9 +11,6 @@ lodash csp
 
 # TODO
 
-https://developer.chrome.com/extensions/i18n.html
-を参考にアイコン系のCSSを書きなおす。
-
 テストコード
 
 現在ディレクトリの強調

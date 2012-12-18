@@ -55,14 +55,6 @@
         $(dom).css({
           'width' : blank
         }).appendTo('body');
-        var getSrc = function(name) {
-          return chrome.extension.getURL("content/img/" + name + ".png");
-        };
-        _.delay(function() {
-          _(['expand', 'collapse']).each(function(e) {
-            $('.actions img.' + e).attr('src', getSrc(e));
-          });
-        });
         var applyAllRow = function(from, to, fn) {
           $('.row[data-path][data-level]').each(function() {
             var $this = $(this);

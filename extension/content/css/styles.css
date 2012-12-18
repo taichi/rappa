@@ -51,6 +51,12 @@
   border: 1px solid #D4D4D4;
   border-bottom-color: #BCBCBC;
 }
+img.expand {
+  content : url('chrome-extension://__MSG_@@extension_id__/content/img/expand.png')
+}
+img.collapse {
+  content : url('chrome-extension://__MSG_@@extension_id__/content/img/collapse.png')
+}
 
 .treegrid {
   width: 100%;
