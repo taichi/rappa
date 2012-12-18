@@ -14,8 +14,6 @@ lodash csp
 https://developer.chrome.com/extensions/i18n.html
 を参考にアイコン系のCSSを書きなおす。
 
-repo_treeキャッシュの時限削除
-
 テストコード
 
 現在ディレクトリの強調

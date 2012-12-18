@@ -4,12 +4,34 @@
         var makeCacheKey = function(request) {
           return [request.user, request.repo, request.hash].join('/');
         };
+        var makeCacheEntry = function(value) {
+          return {
+            time : Date.now(),
+            value : value
+          }
+        };
+        var cache_limit = 1000 * 60 * 60 * 2;
+        var patrol_delay = 1000 * 60 * 20;
+        (function expireCache() {
+          var now = Date.now();
+          _(_.keys(cache)).each(function(v) {
+            var diff = now - cache[v].time;
+            if (cache_limit < diff) {
+              delete cache[v];
+            }
+          });
+          _.delay(expireCache, patrol_delay);
+        })();
         return {
           getCache : function(request) {
-            return cache[makeCacheKey(request)];
+            var entry = cache[makeCacheKey(request)];
+            if (entry) {
+              entry.time = Date.now();
+              return entry.value;
+            }
           },
           setCache : function(request, value) {
-            cache[makeCacheKey(request)] = value;
+            cache[makeCacheKey(request)] = makeCacheEntry(value);
           }
         };
       }());
