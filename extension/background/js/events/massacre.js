@@ -67,5 +67,11 @@
     global.events.line = setPower;
     global.events.times = getTimes;
 
+    chrome.storage.onChanged.addListener(function(changes, area) {
+      if(area === 'local' && changes.massacre) {
+        massacre.getPower(updateBadge);
+      }
+    });
+
     massacre.getPower(updateBadge);
   }(this));
