@@ -12,10 +12,10 @@
     "message": "訓練の成果"
   },
   "ninja_power": {
-    "message": "スコア"
+    "message": "忍者力"
   },
   "number_of_urls": {
-    "message": "訪れたURLの数"
+    "message": "訪れた場所"
   },
   "clear_results": {
     "message": "訓練の成果をリセットする"

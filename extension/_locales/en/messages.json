@@ -9,13 +9,13 @@
     "message": "Ninja reading training Mode"
   },
   "caption_ninja_status": {
-    "message": "Your Ninja Status"
+    "message": "Your Ninja Training Results"
   },
   "ninja_power": {
-    "message": "Training Score"
+    "message": "Ninja Power"
   },
   "number_of_urls": {
-    "message": "Number of visit Urls"
+    "message": "Arrived Locations"
   },
   "clear_results": {
     "message": "Reset Training Results"
