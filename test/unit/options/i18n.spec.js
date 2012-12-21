@@ -10,16 +10,11 @@ describe('i18n', function() {
       });
     }));
 
-    var translate;
-    beforeEach(inject(function($injector) {
-      translate = $injector.get('translate');
-    }));
-
-    it('should work normally.', function() {
+    it('should work normally.', inject(function(translate) {
       var args = ['aaa', 'bbb'];
       translate(args);
       expect(chromeMock.getMessage).toHaveBeenCalledWith(args);
-    });
+    }));
   });
 
   describe('directives', function() {
