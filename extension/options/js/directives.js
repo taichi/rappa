@@ -18,6 +18,7 @@ function($compile, $timeout, translate) {
           var fadeOut = _.bind(newone.fadeOut, newone, 2000, close);
           newone.fadeIn(1000, _.partial($timeout, fadeOut, 3000));
           newone.one('close', child, function(event) {
+            newone.remove();
             event.data.$destroy();
             delete cache[event.data.message_key];
           });

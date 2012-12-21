@@ -19,7 +19,7 @@ describe('i18n', function() {
 
   describe('directives', function() {
     beforeEach(module('i18n.directives'));
-    var $compile, $scope, translateMock;
+    var translateMock;
     beforeEach(module(function($provide) {
       $provide.factory('translate', function() {
         translateMock = jasmine.createSpy('translate');
@@ -27,6 +27,7 @@ describe('i18n', function() {
       });
     }));
 
+    var $compile, $scope;
     beforeEach(inject(function($injector) {
       $compile = $injector.get('$compile');
       $scope = $injector.get('$rootScope');
