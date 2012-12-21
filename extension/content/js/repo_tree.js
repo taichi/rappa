@@ -10,7 +10,7 @@
           repo : ary[4],
           hash : href.split('/')[3],
           treeName : tree
-        }
+        };
       }
     };
 
@@ -28,7 +28,7 @@
 
     var applyNode = function(prop, tree, path, value) {
       var node = _.find(tree, function(s) {
-        return s.path === path
+        return s.path === path;
       });
       if (node) {
         node[prop] = value;

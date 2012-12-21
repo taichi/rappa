@@ -5,8 +5,8 @@
         if (err) {
           throw err;
         }
-        model.urls = model['urls'] || {};
-        model.power = model['power'] || 0;
+        model.urls = model.urls || {};
+        model.power = model.power || 0;
         callback(model);
       });
     };

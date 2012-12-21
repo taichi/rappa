@@ -10,7 +10,7 @@
         },
         set : storage.set,
         clear : storage.remove
-      }
+      };
     })();
 
     global.testGitHub = function(credential, callback) {

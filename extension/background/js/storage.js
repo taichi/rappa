@@ -26,7 +26,7 @@
         clear : function(callback) {
           storage.clear(_.partial(addLastError, callback));
         }
-      }
+      };
     };
     global.storage = {
       local : _.partial(wrap, chrome.storage.local),

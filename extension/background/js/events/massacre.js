@@ -12,7 +12,7 @@
         ba.setTitle({
           title : str
         });
-      }
+      };
     })();
 
     var massacre = global.massacre;

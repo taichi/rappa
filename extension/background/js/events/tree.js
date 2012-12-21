@@ -8,7 +8,7 @@
           return {
             time : Date.now(),
             value : value
-          }
+          };
         };
         var cache_limit = 1000 * 60 * 60 * 2;
         var patrol_delay = 1000 * 60 * 20;
