@@ -20,7 +20,7 @@
         "common/lodash.custom.min.js",
         "common/jquery-1.8.2.min.js", "content/lib/jquery-observe.js", 
         "content/lib/handlebars.runtime-1.0.rc.1.min.js",
-        "content/js/templates.js", "content/js/repo_tree.js", 
+        "content/lib/templates.js", "content/js/repo_tree.js", 
         "content/js/main.js"
       ],
       "run_at": "document_end"

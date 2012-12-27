@@ -1,3 +1,3 @@
 eclipse.preferences.version=1
-excluded=extension/content/js//templates.js\:test//*.conf.js\:test/lib//*
-included=extension/background/js//*.js\:extension/content/js//*.js\:test//*.js
+excluded=test//*.conf.js\:test/lib//*
+included=//Gruntfile.js\:extension/background/js//*.js\:extension/content/js//*.js\:test//*.js
