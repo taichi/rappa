@@ -1,8 +1,14 @@
 
+# Rappa
+これはコードリーディング技術を得る為の矯正ギブスとなるChrome拡張です。  
+
 # for build
-npm install handlebars -g
-npm install lodash -g
-lodash csp
+- npm install
+- npm install grunt@0.4.0a -g
+- npm install testacular@canary -g
+- npm install handlebars -g
+- npm install lodash -g
+- lodash csp
 
 
 
@@ -11,24 +17,26 @@ lodash csp
 
 # TODO
 
-リリース作業
-    - 640x400 のスクリーンショット
-    - 128x128 のアイコン
+## リリース作業
+- 640x400 のスクリーンショット
+- 128x128 のアイコン
 
-テストコード
+## テストコード
+- backgroundScript
+- contentScript
 
-現在ディレクトリの強調
+## 現在ディレクトリの強調
 
-チェックボックスをONにした時に何が起こるのか詳細説明
+## チェックボックスをONにした時に何が起こるのか詳細説明
 
-設定変更に併せてブラーを解除する為に、Portベースのメッセージパッシングにする。
+## 設定変更に併せてブラーを解除する為に、Portベースのメッセージパッシングにする。
 
-Google Analytics を使って設定変更をトラッキングする。
+## Google Analytics を使って設定変更をトラッキングする。
   - トレーニングモードの稼働率
   - 人気のリポジトリ
 
 
-リポジトリのルート・ディレクトリを見て、GitHubのdescriptionに色々情報を足す。
+## リポジトリのルート・ディレクトリを見て、GitHubのdescriptionに色々情報を足す。
 - プログラミング言語へのリファレンス、厳密にはそうでないものも出来るだけだす。
     - 言語系  js java ruby python perl erlang haskell
     - DSL系 css less sass 
@@ -63,11 +71,10 @@ Google Analytics を使って設定変更をトラッキングする。
     - SublimeText2
     - ...
 
-css の less化
-  今はそれ程量が多い訳でもないので後回し。
+## css の less化
+今はそれ程量が多い訳でもないので後回し。
 
-ビルドスクリプト
-
-# Aptana Studio 3
+## Aptana Studio 3
 Angular.js のカスタム属性に関するワーニングを消す方法。
+
     Preferences > Studio >Validation > HTML and turned off "HTML Tidy" on 
