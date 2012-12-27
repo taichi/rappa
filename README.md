@@ -34,13 +34,12 @@
 # TODO
 
 - リリース作業
-    - 640x400 のスクリーンショット
     - 128x128 のアイコン
 
 - テストコード
     - backgroundScript
     - contentScript
-    - E2E test でproxy をGitHubにすれば出来るかも。
+    - E2E test で proxy を GitHub にすれば出来るかも。
 
 - 現在ディレクトリの強調
 
@@ -90,6 +89,12 @@
     - eclipse
     - SublimeText2
     - ...
+
+## 問題集リポジトリ
+- よいコードと悪いコードが端的に分る様なコードリポジトリを用意する。
+    - [悪いコードの例](https://github.com/taichi/rappa/blob/master/extension/content/js/repo_tree.js)
+    - [良いコードの例](https://github.com/taichi/rappa/blob/master/extension/options/js/controllers.js)
+- 何らかのソーシャルグラフによってそういうものが自動的に形成されるのが望ましいが…
 
 ## Aptana Studio 3
 Angular.js のカスタム属性に関するワーニングを消す方法。
