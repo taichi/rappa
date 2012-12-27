@@ -15,28 +15,35 @@
 - npm install lodash -g
 - lodash csp -m -o extension/common/lodash.custom.min.js
 
+# Development Environment
+- [Aptana](http://www.aptana.com/)
+- [EGit](http://www.eclipse.org/egit/download/)
+- [JsHint eclipse](http://github.eclipsesource.com/jshint-eclipse/install.html)
+- Chrome 23
+- Node 0.8.12
+
 # BUG
 スクロール出来ない画面ではブラーが解けない。
 
 # TODO
 
-## リリース作業
-- 640x400 のスクリーンショット
-- 128x128 のアイコン
+- リリース作業
+    - 640x400 のスクリーンショット
+    - 128x128 のアイコン
 
-## テストコード
-- backgroundScript
-- contentScript
+- テストコード
+    - backgroundScript
+    - contentScript
 
-## 現在ディレクトリの強調
+- 現在ディレクトリの強調
 
-## チェックボックスをONにした時に何が起こるのか詳細説明
+- チェックボックスをONにした時に何が起こるのか詳細説明
 
-## 設定変更に併せてブラーを解除する為に、Portベースのメッセージパッシングにする。
+- 設定変更に併せてブラーを解除する為に、Portベースのメッセージパッシングにする。
 
-## Google Analytics を使って設定変更をトラッキングする。
-  - トレーニングモードの稼働率
-  - 人気のリポジトリ
+- Google Analytics を使って設定変更をトラッキングする。
+    - トレーニングモードの稼働率
+    - 人気のリポジトリ
 
 
 ## リポジトリのルート・ディレクトリを見て、GitHubのdescriptionに色々情報を足す。
@@ -74,8 +81,8 @@
     - SublimeText2
     - ...
 
-## css の less化
-今はそれ程量が多い訳でもないので後回し。
+- css の less化
+    - 今はそれ程量が多い訳でもないので後回し。
 
 ## Aptana Studio 3
 Angular.js のカスタム属性に関するワーニングを消す方法。
