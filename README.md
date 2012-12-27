@@ -7,10 +7,13 @@
 - npm install grunt@0.4.0a -g
 - npm install testacular@canary -g
 - npm install handlebars -g
+
+## run tests
+- grunt test
+
+## memo
 - npm install lodash -g
-- lodash csp
-
-
+- lodash csp -m -o extension/common/lodash.custom.min.js
 
 # BUG
 スクロール出来ない画面ではブラーが解けない。

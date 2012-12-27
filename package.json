@@ -2,13 +2,29 @@
   "name": "rappa",
   "author": "SATO taichi <ryushi@gmail.com>",
   "version": "0.0.1",
-  "private" : true,
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/taichi/rappa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/taichi/rappa/issues"
+  },
+  "licenses": [
+    {
+      "type": "Apache License",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
   "devDependencies": {
     "grunt-cli": ">= 0.1.0",
     "grunt-contrib-jshint": ">= 0.1.0",
     "grunt-contrib-compress": "0.3.3",
     "handlebars": ">= 1.0.7",
     "lodash": ">= 0.10.0",
-    "q" : "0.8.11"
+    "q": "0.8.11"
   }
 }

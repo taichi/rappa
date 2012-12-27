@@ -8,6 +8,11 @@ module.exports = function(grunt) {
     jshint : {
       all : ['Gruntfile.js', jsFiles('background'), jsFiles('content'), jsFiles('options')]
     },
+    lodash: {
+      modifier: 'csp',
+      src: 'node_modules/lodash',
+      dest: 'extension/common/lodash.csp.js'
+    },
     compress : {
       extension : {
         options : {
@@ -20,16 +25,24 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('test', 'run tests', function() {
+    var child = grunt.util.spawn({
+      cmd : 'testacular',
+      args : 'start test/unit/options.conf.js --single-run'.split(' ')
+    }, this.async());
+    child.stdout.pipe(process.stdout);
+    child.stderr.pipe(process.stderr);
+  });
+
   grunt.registerTask('template', 'process handlebars precompilation', function() {
-    var done = this.async();
     grunt.util.spawn({
       cmd : 'handlebars',
       args : 'template -f extension/content/lib/templates.js -m -o -k each -k if -k unless'.split(' ')
-    }, done);
+    }, this.async());
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
-  grunt.registerTask('default', ['template', 'compress']);
+  grunt.registerTask('default', ['template', 'test', 'compress']);
 };
