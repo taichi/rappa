@@ -4,6 +4,10 @@
 
 ![Screen Shot](https://github.com/taichi/rappa/raw/master/docs/screenshot.png)
 
+# install
+
+[Rappa on Chrome WebStore](https://chrome.google.com/webstore/detail/rappa/fmdbfhcpmkefkijjoogaiaigdgkmccpo)
+
 # for build
 - `npm install`
 - `npm install grunt@0.4.0a -g`
