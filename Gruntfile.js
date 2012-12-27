@@ -8,11 +8,6 @@ module.exports = function(grunt) {
     jshint : {
       all : ['Gruntfile.js', jsFiles('background'), jsFiles('content'), jsFiles('options')]
     },
-    lodash: {
-      modifier: 'csp',
-      src: 'node_modules/lodash',
-      dest: 'extension/common/lodash.csp.js'
-    },
     compress : {
       extension : {
         options : {

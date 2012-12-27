@@ -23,8 +23,5 @@
     "grunt-cli": ">= 0.1.0",
     "grunt-contrib-jshint": ">= 0.1.0",
     "grunt-contrib-compress": "0.3.3",
-    "handlebars": ">= 1.0.7",
-    "lodash": ">= 0.10.0",
-    "q": "0.8.11"
   }
 }
