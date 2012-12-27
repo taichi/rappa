@@ -2,14 +2,16 @@
 # Rappa
 これはコードリーディング技術を得る為の矯正ギブスとなるChrome拡張です。  
 
+![Screen Shot](https://github.com/taichi/rappa/raw/master/docs/screenshot.png)
+
 # for build
-- npm install
-- npm install grunt@0.4.0a -g
-- npm install testacular@canary -g
-- npm install handlebars -g
+- `npm install`
+- `npm install grunt@0.4.0a -g`
+- `npm install testacular@canary -g`
+- `npm install handlebars -g`
 
 ## run tests
-- grunt test
+- `grunt test`
 
 ## memo
 - npm install lodash -g
@@ -34,6 +36,7 @@
 - テストコード
     - backgroundScript
     - contentScript
+    - E2E test でproxy をGitHubにすれば出来るかも。
 
 - 現在ディレクトリの強調
 
@@ -44,6 +47,9 @@
 - Google Analytics を使って設定変更をトラッキングする。
     - トレーニングモードの稼働率
     - 人気のリポジトリ
+
+- css の less化
+    - 今はそれ程量が多い訳でもないので後回し。
 
 
 ## リポジトリのルート・ディレクトリを見て、GitHubのdescriptionに色々情報を足す。
@@ -80,9 +86,6 @@
     - eclipse
     - SublimeText2
     - ...
-
-- css の less化
-    - 今はそれ程量が多い訳でもないので後回し。
 
 ## Aptana Studio 3
 Angular.js のカスタム属性に関するワーニングを消す方法。
