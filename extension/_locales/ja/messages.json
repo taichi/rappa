@@ -3,7 +3,7 @@
     "message": "乱破"
   },
   "description": {
-    "message": "太一によるコードリーディング手法をサポートする拡張です。"
+    "message": "忍者によるコードリーディング手法をサポートする拡張です。この拡張はGoogle Analyticsであなたの操作をトラッキングしています。"
   },
   "training_mode": {
     "message": "トレーニングモード"

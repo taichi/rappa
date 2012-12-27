@@ -3,7 +3,7 @@
     "message": "Rappa"
   },
   "description": {
-    "message": "This extension supports code reading method used by taichi"
+    "message": "This extension supports code reading method used for Ninja. This extension track your oprations by Google Analytics."
   },
   "training_mode": {
     "message": "Ninja reading training Mode"
