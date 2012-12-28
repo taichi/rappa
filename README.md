@@ -8,6 +8,9 @@
 
 [Rappa on Chrome WebStore](https://chrome.google.com/webstore/detail/rappa/fmdbfhcpmkefkijjoogaiaigdgkmccpo)
 
+- if you want to be Ninja
+    - Option -> `Ninja reading training Mode` on and push `Apply`
+
 # for build
 - `npm install`
 - `npm install grunt@0.4.0a -g`
@@ -37,6 +40,7 @@
     - 128x128 のアイコン
 
 - テストコード
+    - manifest.json の自動生成
     - backgroundScript
     - contentScript
     - E2E test で proxy を GitHub にすれば出来るかも。
