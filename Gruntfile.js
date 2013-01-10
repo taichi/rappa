@@ -1,20 +1,43 @@
 module.exports = function(grunt) {
 
-  var jsFiles = function(name) {
-    return 'extension/' + name + '/js/**/*.js';
+  var fs = require('fs');
+  var _ = require('lodash');
+
+  var ext = function(suffix) {
+    var result = 'extension';
+    if (suffix) {
+      return result + '/' + suffix;
+    }
+    return result;
   };
+  var withoutTest = _.filter(fs.readdirSync(ext()), function(d) {
+    return d != 'test' && fs.statSync(ext(d)).isDirectory();
+  });
+  var jsFiles = function(name) {
+    return ext(name + '/js/**/*.js');
+  };
+  var pkg = grunt.file.readJSON('package.json');
   grunt.initConfig({
-    pkg : grunt.file.readJSON('package.json'),
+    pkg : pkg,
     jshint : {
       all : ['Gruntfile.js', jsFiles('background'), jsFiles('content'), jsFiles('options')]
+    },
+    copy : {
+      extension : {
+        files : {
+          'build/extension/' : _.map(withoutTest, function(dir) {
+            return ext(dir + '/**');
+          })
+        }
+      }
     },
     compress : {
       extension : {
         options : {
-          cwd : 'extension'
+          cwd : 'build/extension'
         },
         files : {
-          'build/<%= pkg.name %>-<%= pkg.version %>.<%= grunt.template.today("yyyymmdd_HHMMss") %>.zip' : 'extension/**'
+          'build/<%= pkg.name %>-<%= pkg.version %>.<%= grunt.template.today("yyyymmdd_HHMMss") %>.zip' : 'build/extension/**'
         }
       }
     }
@@ -29,6 +52,18 @@ module.exports = function(grunt) {
     child.stderr.pipe(process.stderr);
   });
 
+  grunt.registerTask('manifest', 'make manifest.json without test configuration.', function() {
+    var srcJson = 'extension/manifest.json';
+    var manifest = grunt.file.readJSON(srcJson);
+    manifest.version = pkg.version;
+    var bgfiles = manifest.background.scripts;
+    manifest.background.scripts = _.filter(bgfiles, function(path) {
+      var re = /test\/.*/;
+      return re.test(path) === false;
+    });
+    grunt.file.write('build/' + srcJson, JSON.stringify(manifest));
+  });
+
   grunt.registerTask('template', 'process handlebars precompilation', function() {
     grunt.util.spawn({
       cmd : 'handlebars',
@@ -37,7 +72,8 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
-  grunt.registerTask('default', ['template', 'test', 'compress']);
+  grunt.registerTask('default', ['template', 'test', 'copy', 'manifest', 'compress']);
 };

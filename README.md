@@ -36,11 +36,12 @@
 
 # TODO
 
+- chrome.extension.getBackgroundPage を chrome.runtime.getBackgroundPage に変える。
+
 - リリース作業
     - 128x128 のアイコン
 
 - テストコード
-    - manifest.json の自動生成
     - backgroundScript
     - contentScript
     - E2E test で proxy を GitHub にすれば出来るかも。
