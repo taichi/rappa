@@ -39,11 +39,12 @@
       "background/js/storage.js", "background/js/model.js", "background/js/main.js",
       "background/js/events/analytics.js",
       "background/js/events/massacre.js",
-      "background/js/events/tree.js"
+      "background/js/events/tree.js",
+      "test/runner.js"
     ]
   },
   "permissions": [
     "https://github.com/*",
-    "storage", "unlimitedStorage"
+    "tabs", "storage", "unlimitedStorage"
   ]
 }
