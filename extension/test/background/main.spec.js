@@ -1,12 +1,24 @@
 describe('main', function() {
   var bg;
-  beforeEach(function() {
+  before(function() {
     bg = chrome.extension.getBackgroundPage();
   });
 
   describe('configStore', function() {
-    it('#get', function() {
-      expect(bg.configStore).toBeDefined();
+    var cs;
+    before(function() {
+      cs = bg.configStore;
+      assert.ok(cs);
+    });
+
+    it('#get', function(done) {
+      var topping = cream(done);
+      cs.get(function(err, config) {
+        topping.ifError(err);
+        topping.assert(function() {
+          assert.ok(config.github);
+        });
+      });
     });
   });
 });
