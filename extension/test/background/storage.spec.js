@@ -4,7 +4,7 @@ describe('storage', function() {
     bg = chrome.extension.getBackgroundPage();
   });
 
-  it('types', function() {
+  it('should have 3 types', function() {
     assert.ok(bg.storage.local);
     assert.ok(bg.storage.sync);
     assert.ok(bg.storage.managed);
@@ -19,13 +19,22 @@ describe('storage', function() {
     afterEach(function() {
       local.remove();
     });
-    it('#set and #get', function(done) {
-      var topping = cream(done);
+
+    describe('#set', function() {
       var model = {
         a : 1,
         b : 2
       };
-      local.set(model, function(err) {
+      beforeEach(function(done) {
+        var topping = cream(done);
+        local.set(model, function(err) {
+          topping.ifError(err);
+          done();
+        });
+      });
+
+      it('#get', function(done) {
+        var topping = cream(done);
         local.get(function(err, m) {
           topping.ifError(err);
           topping.assert(function() {
@@ -33,6 +42,17 @@ describe('storage', function() {
           });
         });
       });
+
+      it('#getBytesInuse', function(done) {
+        var topping = cream(done);
+        local.getBytesInUse(function(err, bytes) {
+          topping.ifError(err);
+          topping.assert(function() {
+            assert(0 < bytes);
+          });
+        });
+      });
+
     });
   });
 });
