@@ -1,4 +1,6 @@
 /node_modules
 /coverage
 /build
+/extension/content/lib/templates.js
+/extension/test/background/main.fixture.js
 *.log
