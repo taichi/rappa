@@ -1,10 +1,11 @@
-// workaround codes for mocha.
+// browser-side workaround codes for mocha.
 (function(global) {
   var cream = function(done) {
     return {
       ifError : function(err) {
         if (err) {
           done(err);
+          throw err;
         }
       },
       // https://github.com/visionmedia/mocha/pull/278

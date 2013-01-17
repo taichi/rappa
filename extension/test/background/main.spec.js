@@ -30,7 +30,7 @@ describe('main', function() {
       assert.ok(fixture.github, 'fixture should be define');
     });
 
-    it('should success auth', function(done) {
+    it.skip('should success auth', function(done) {
       var topping = cream(done);
       tgh(fixture.github, function(err, user) {
         topping.ifError(err);
@@ -40,7 +40,7 @@ describe('main', function() {
         });
       });
     });
-    it('should fail auth', function(done){
+    it.skip('should fail auth', function(done){
       var topping = cream(done);
       tgh({}, function(err, user) {
         topping.assert(function() {

@@ -2,23 +2,13 @@
   var storage = global.storage.local('massacre');
   var loadModel = function(callback) {
     storage.get(function(err, model) {
-      if (err) {
-        throw err;
-      }
       model.urls = model.urls || {};
       model.power = model.power || 0;
-      callback(model);
+      callback(err, model);
     });
   };
 
-  var saveModel = function(model, callback) {
-    storage.set(model, function(err) {
-      if (err) {
-        throw err;
-      }
-      callback();
-    });
-  };
+  var saveModel = _.bind(storage.set, storage);
 
   var calcHash = function(url) {
     var u = purl(url).attr('path');
@@ -26,53 +16,63 @@
   };
 
   var getTimes = function(url, callback) {
-    loadModel(function(model) {
+    loadModel(function(err, model) {
+      if (err) {
+        callback(err);
+        return;
+      }
       var hash = calcHash(url);
       var times = model.urls[hash];
       if (_.isUndefined(times)) {
         times = 0;
       }
-      callback(hash, model, times);
-    });
-  };
-
-  var getMetrix = function(callback) {
-    loadModel(function(model) {
-      var metrix = {};
-      metrix.power = model.power;
-      metrix.urls = _.keys(model.urls).length;
-      callback(false, metrix);
+      callback(false, hash, model, times);
     });
   };
 
   global.massacre = {
     getTimes : function(url, callback) {
-      getTimes(url, function(hash, model, times) {
-        callback(times);
+      getTimes(url, function(err, hash, model, times) {
+        callback(err, times);
       });
     },
     addTimes : function(url, callback) {
-      getTimes(url, function(hash, model, times) {
+      getTimes(url, function(err, hash, model, times) {
+        if (err) {
+          callback(err);
+          return;
+        }
         model.urls[hash] = ++times;
-        saveModel(model, function() {
-          callback(times);
+        saveModel(model, function(err) {
+          callback(err, times);
         });
       });
     },
     addPower : function(power, callback) {
-      loadModel(function(model) {
+      loadModel(function(err, model) {
+        if (err) {
+          callback(err);
+          return;
+        }
         model.power += power;
-        saveModel(model, function() {
-          callback(model.power);
+        saveModel(model, function(err) {
+          callback(err, model.power);
         });
       });
     },
     getPower : function(callback) {
-      loadModel(function(model) {
-        callback(model.power);
+      loadModel(function(err, model) {
+        callback(err, model.power);
       });
     },
-    getMetrix : getMetrix,
+    getMetrix : function(callback) {
+      loadModel(function(err, model) {
+        callback(err, {
+          power : model.power,
+          urls : _.keys(model.urls).length
+        });
+      });
+    },
     clear : storage.remove
   };
 })(this);

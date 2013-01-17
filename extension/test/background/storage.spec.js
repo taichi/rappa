@@ -16,8 +16,12 @@ describe('storage', function() {
       local = bg.storage.local('testXXX');
       assert.ok(local);
     });
-    afterEach(function() {
-      local.remove();
+    afterEach(function(done) {
+      var topping = cream(done);
+      local.remove(function(err) {
+        topping.ifError(err);
+        done();
+      });
     });
 
     describe('#set', function() {

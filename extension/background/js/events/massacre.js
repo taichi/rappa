@@ -19,15 +19,15 @@
 
   var getTimes = function(request, sender, response) {
     global.configStore.get(function(err, config) {
-      if (config.ninja === true) {
+      if (err || !!!config.ninja) {
+        response({
+          times : -1
+        });
+      } else {
         massacre.getTimes(request.url, function(times) {
           response({
             times : times
           });
-        });
-      } else {
-        response({
-          times : -1
         });
       }
     });
@@ -41,19 +41,26 @@
         times : times
       });
     };
+    var errEnd = _.partial(response, {
+      times : -1
+    });
     global.configStore.get(function(err, config) {
-      if (config.ninja === true) {
+      if (err) {
+        errEnd();
+      } else if (config.ninja === true) {
         var url = request.url;
-        massacre.getTimes(url, function(times) {
-          if (times < 1) {
-            massacre.addPower(Number(request.line), function(power) {
-              massacre.addTimes(url, function(t) {
+        massacre.getTimes(url, function(err, times) {
+          if (err) {
+            errEnd();
+          } else if (times < 1) {
+            massacre.addPower(Number(request.line), function(err, power) {
+              massacre.addTimes(url, function(err, t) {
                 end(t, power);
               });
             });
           } else {
-            massacre.addTimes(url, function(t) {
-              massacre.getPower(function(power) {
+            massacre.addTimes(url, function(err, t) {
+              massacre.getPower(function(err, power) {
                 end(t, power);
               });
             });
@@ -67,11 +74,15 @@
   global.events.line = setPower;
   global.events.times = getTimes;
 
-  chrome.storage.onChanged.addListener(function(changes, area) {
-    if (area === 'local' && changes.massacre) {
-      massacre.getPower(updateBadge);
-    }
-  });
-
-  massacre.getPower(updateBadge);
+  (function() {
+    var ub = function(err, value) {
+      updateBadge(value);
+    };
+    chrome.storage.onChanged.addListener(function(changes, area) {
+      if (area === 'local' && changes.massacre) {
+        massacre.getPower(ub);
+      }
+    });
+    massacre.getPower(ub);
+  })();
 })(this);
