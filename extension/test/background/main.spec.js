@@ -22,7 +22,7 @@ describe('main', function() {
     });
   });
 
-  describe('github', function() {
+  describe.skip('github', function() {
     var tgh;
     before(function() {
       tgh = bg.testGitHub;

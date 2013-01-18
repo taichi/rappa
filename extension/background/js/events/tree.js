@@ -82,7 +82,7 @@
         var cached = treeCache.getCache(request);
         if (_.isUndefined(cached)) {
           newTree(request, function(trees) {
-            treeCache.setCache(trees);
+            treeCache.setCache(request, trees);
             response(trees);
           });
           return true;

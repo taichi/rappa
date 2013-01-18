@@ -1,5 +1,5 @@
 describe('events/tree', function() {
-  it('should work normally', function(done) {
+  var spec = function(done) {
     var topping = cream(done);
     chrome.extension.sendMessage({
       type : 'tree',
@@ -12,5 +12,10 @@ describe('events/tree', function() {
         expect(tree).to.be.ok;
       });
     });
+  };
+  it('should work normally', spec);
+  it('should use cache', function(done) {
+    this.timeout(200);
+    spec(done);
   });
-}); 
+});
