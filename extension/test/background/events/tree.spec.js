@@ -9,7 +9,7 @@ describe('events/tree', function() {
       treeName : 'master'
     }, function(tree) {
       topping.assert(function() {
-        assert.ok(tree);
+        expect(tree).to.be.ok;
       });
     });
   });

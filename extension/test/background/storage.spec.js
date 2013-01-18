@@ -5,16 +5,16 @@ describe('storage', function() {
   });
 
   it('has 3 types', function() {
-    assert.ok(bg.storage.local);
-    assert.ok(bg.storage.sync);
-    assert.ok(bg.storage.managed);
+    expect(bg.storage.local).to.be.ok;
+    expect(bg.storage.sync).to.be.ok;
+    expect(bg.storage.managed).to.be.ok;
   });
 
   describe('local', function() {
     var local;
     beforeEach(function() {
       local = bg.storage.local('testXXX');
-      assert.ok(local);
+      expect(local).to.be.ok;
     });
     afterEach(function(done) {
       var topping = cream(done);
@@ -42,7 +42,7 @@ describe('storage', function() {
         local.get(function(err, m) {
           topping.ifError(err);
           topping.assert(function() {
-            assert.deepEqual(m, model);
+            expect(m).to.deep.equal(model);
           });
         });
       });
@@ -52,7 +52,7 @@ describe('storage', function() {
         local.getBytesInUse(function(err, bytes) {
           topping.ifError(err);
           topping.assert(function() {
-            assert(0 < bytes);
+            expect(bytes).to.be.above(0);
           });
         });
       });

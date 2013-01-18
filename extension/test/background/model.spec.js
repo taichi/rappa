@@ -8,7 +8,7 @@ describe('model', function() {
     var massacre;
     beforeEach(function() {
       massacre = bg.massacre;
-      assert.ok(massacre);
+      expect(massacre).to.be.ok;
     });
     afterEach(function(done) {
       var topping = cream(done);
@@ -22,7 +22,7 @@ describe('model', function() {
       massacre.addTimes('http://example.com', function(err, times) {
         topping.ifError(err);
         topping.assert(function() {
-          assert.equal(times, 1);
+          expect(times).to.equal(1);
         });
       });
     });
@@ -32,7 +32,7 @@ describe('model', function() {
       massacre.addPower(71, function(err, power) {
         topping.ifError(err);
         topping.assert(function() {
-          assert.equal(power, 71);
+          expect(power).to.equal(71);
         });
       });
     });
@@ -42,9 +42,10 @@ describe('model', function() {
       massacre.addTimes('http://example.org', function() {
         massacre.addPower(11, function(err) {
           topping.ifError(err);
+          expect(err).to.be.undefined;
           massacre.getMetrix(function(err, metrix) {
             topping.assert(function() {
-              assert.deepEqual(metrix, {
+              expect(metrix).to.deep.equal({
                 power : 11,
                 urls : 1
               });

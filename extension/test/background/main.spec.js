@@ -8,7 +8,7 @@ describe('main', function() {
     var cs;
     before(function() {
       cs = bg.configStore;
-      assert.ok(cs);
+      expect(cs).to.be.ok;
     });
 
     it('#get works normally', function(done) {
@@ -16,18 +16,18 @@ describe('main', function() {
       cs.get(function(err, config) {
         topping.ifError(err);
         topping.assert(function() {
-          assert.ok(config.github);
+          expect(config.github).to.be.ok;
         });
       });
     });
   });
 
-  describe.skip('github', function() {
+  describe('github', function() {
     var tgh;
     before(function() {
       tgh = bg.testGitHub;
-      assert.ok(tgh);
-      assert.ok(fixture.github, 'fixture should be define');
+      expect(tgh).to.be.ok;
+      expect(fixture.github).to.be.ok;
     });
 
     it('should success auth', function(done) {
@@ -35,8 +35,8 @@ describe('main', function() {
       tgh(fixture.github, function(err, user) {
         topping.ifError(err);
         topping.assert(function() {
-          assert.ok(user);
-          assert.equal(user.type, 'User');
+          expect(user).to.be.ok;
+          expect(user.type).to.equal('User');
         });
       });
     });
@@ -44,9 +44,9 @@ describe('main', function() {
       var topping = cream(done);
       tgh({}, function(err, user) {
         topping.assert(function() {
-          assert.ok(err);
-          assert.equal(err.error, 401);
-          assert.equal(err.request.statusText, 'Unauthorized');
+          expect(err).to.be.ok;
+          expect(err.error).to.equal(401);
+          expect(err.request.statusText).to.equal('Unauthorized');
         });
       });
     });
