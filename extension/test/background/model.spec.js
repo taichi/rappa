@@ -17,7 +17,7 @@ describe('model', function() {
         done();
       });
     });
-    it('#addTimes', function(done) {
+    it('#addTimes works normally', function(done) {
       var topping = cream(done);
       massacre.addTimes('http://example.com', function(err, times) {
         topping.ifError(err);
@@ -27,7 +27,7 @@ describe('model', function() {
       });
     });
 
-    it('#addPower', function(done) {
+    it('#addPower works normally', function(done) {
       var topping = cream(done);
       massacre.addPower(71, function(err, power) {
         topping.ifError(err);
@@ -37,7 +37,7 @@ describe('model', function() {
       });
     });
 
-    it('#getMetrix', function(done) {
+    it('#getMetrix works normally', function(done) {
       var topping = cream(done);
       massacre.addTimes('http://example.org', function() {
         massacre.addPower(11, function(err) {

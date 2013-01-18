@@ -4,7 +4,7 @@ describe('storage', function() {
     bg = chrome.extension.getBackgroundPage();
   });
 
-  it('should have 3 types', function() {
+  it('has 3 types', function() {
     assert.ok(bg.storage.local);
     assert.ok(bg.storage.sync);
     assert.ok(bg.storage.managed);
@@ -24,7 +24,7 @@ describe('storage', function() {
       });
     });
 
-    describe('#set', function() {
+    context('#set with', function() {
       var model = {
         a : 1,
         b : 2
@@ -37,7 +37,7 @@ describe('storage', function() {
         });
       });
 
-      it('#get', function(done) {
+      it('#get works normally', function(done) {
         var topping = cream(done);
         local.get(function(err, m) {
           topping.ifError(err);
@@ -47,7 +47,7 @@ describe('storage', function() {
         });
       });
 
-      it('#getBytesInuse', function(done) {
+      it('#getBytesInuse works normally', function(done) {
         var topping = cream(done);
         local.getBytesInUse(function(err, bytes) {
           topping.ifError(err);

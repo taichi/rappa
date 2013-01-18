@@ -11,7 +11,7 @@ describe('main', function() {
       assert.ok(cs);
     });
 
-    it('#get', function(done) {
+    it('#get works normally', function(done) {
       var topping = cream(done);
       cs.get(function(err, config) {
         topping.ifError(err);
@@ -22,7 +22,7 @@ describe('main', function() {
     });
   });
 
-  describe('github', function() {
+  describe.skip('github', function() {
     var tgh;
     before(function() {
       tgh = bg.testGitHub;
@@ -30,7 +30,7 @@ describe('main', function() {
       assert.ok(fixture.github, 'fixture should be define');
     });
 
-    it.skip('should success auth', function(done) {
+    it('should success auth', function(done) {
       var topping = cream(done);
       tgh(fixture.github, function(err, user) {
         topping.ifError(err);
@@ -40,7 +40,7 @@ describe('main', function() {
         });
       });
     });
-    it.skip('should fail auth', function(done){
+    it('should fail auth', function(done){
       var topping = cream(done);
       tgh({}, function(err, user) {
         topping.assert(function() {
