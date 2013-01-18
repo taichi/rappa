@@ -17,17 +17,24 @@
 
   var massacre = global.massacre;
 
+  var errorEnd = function(response) {
+    response({
+      times : -1
+    });
+  };
   var getTimes = function(request, sender, response) {
     global.configStore.get(function(err, config) {
       if (err || !!!config.ninja) {
-        response({
-          times : -1
-        });
+        errorEnd(response);
       } else {
-        massacre.getTimes(request.url, function(times) {
-          response({
-            times : times
-          });
+        massacre.getTimes(request.url, function(err, times) {
+          if (err) {
+            errorEnd(response);
+          } else {
+            response({
+              times : times
+            });
+          }
         });
       }
     });
@@ -41,19 +48,19 @@
         times : times
       });
     };
-    var errEnd = _.partial(response, {
-      times : -1
-    });
     global.configStore.get(function(err, config) {
       if (err) {
-        errEnd();
+        errorEnd(response);
       } else if (config.ninja === true) {
         var url = request.url;
         massacre.getTimes(url, function(err, times) {
           if (err) {
-            errEnd();
+            errorEnd(response);
           } else if (times < 1) {
             massacre.addPower(Number(request.line), function(err, power) {
+              if(err) {
+                errorEnd(response);
+              }
               massacre.addTimes(url, function(err, t) {
                 end(t, power);
               });

@@ -91,11 +91,11 @@
       };
     }());
 
-  var updateStates = function(request, sender, response) {
+  var updateStatus = function(request, sender, response) {
     treeCache.setCache(request, request.tree);
     response('ok');
   };
 
   global.events.tree = getTree;
-  global.events.states = updateStates;
+  global.events.status = updateStatus;
 })(this);
