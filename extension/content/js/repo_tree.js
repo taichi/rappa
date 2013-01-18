@@ -2,7 +2,7 @@
     var getCurrentRepo = function() {
       var url = $('meta[property="og:url"]').attr('content');
       var href = $('head link[rel="permalink"]').attr('href');
-      var tree = $('.switcher.repo-tree').attr('data-ref');
+      var tree = $('.js-branch-menu .js-menu-target').attr('data-ref');
       if (url && href && tree) {
         var ary = url.split('/');
         return {
@@ -20,7 +20,7 @@
         if (_.isUndefined(request)) {
           return;
         }
-        request.type = 'states';
+        request.type = 'status';
         request.tree = tree;
         chrome.extension.sendMessage(request);
       });
