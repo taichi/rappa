@@ -1,4 +1,8 @@
 describe('model', function() {
+  /*global fixture:false */
+  /*jshint expr:true */
+  // @formatter:off
+  'use strict';
   var bg;
   before(function() {
     bg = chrome.extension.getBackgroundPage();
@@ -42,7 +46,7 @@ describe('model', function() {
       massacre.addTimes('http://example.org', function() {
         massacre.addPower(11, function(err) {
           topping.ifError(err);
-          expect(err).to.be.undefined;
+          expect(err).to.equal(undefined);
           massacre.getMetrix(function(err, metrix) {
             topping.assert(function() {
               expect(metrix).to.deep.equal({

@@ -1,4 +1,5 @@
 (function(global) {
+  'use strict';
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-37265569-1']);
   _gaq.push(['_trackPageview']);

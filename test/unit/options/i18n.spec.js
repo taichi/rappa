@@ -1,4 +1,5 @@
 describe('i18n', function() {
+  'use strict';
 
   describe('translate', function() {
     beforeEach(module('i18n'));

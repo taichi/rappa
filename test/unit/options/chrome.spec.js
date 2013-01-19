@@ -1,4 +1,5 @@
 describe('chrome', function() {
+  'use strict';
   window.chrome = {};
   beforeEach(module('chrome'));
 

@@ -1,4 +1,5 @@
 describe('controllers', function() {
+  'use strict';
   beforeEach(module('Options'));
 
   var $q, $scope, $controller;
@@ -154,7 +155,7 @@ describe('controllers', function() {
     var alert = jasmine.createSpy('alert');
     $scope.$on('event:alert', alert);
 
-    defers = setUpController(args, 'clearPower', function(svc, defers) {
+    var defers = setUpController(args, 'clearPower', function(svc, defers) {
       defers.clearPower_defer = $q.defer();
       svc.clearPower.andReturn(defers.clearPower_defer.promise);
     });

@@ -1,4 +1,7 @@
 describe('storage', function() {
+  /*jshint expr:true */
+  // @formatter:off
+  'use strict';
   var bg;
   before(function() {
     bg = chrome.extension.getBackgroundPage();

@@ -1,4 +1,5 @@
 describe('directives', function() {
+  'use strict';
   beforeEach(module('Options'));
 
   describe('alert', function() {

@@ -1,4 +1,5 @@
 describe('services', function() {
+  'use strict';
   beforeEach(module('Options'));
 
   describe('configStore', function() {

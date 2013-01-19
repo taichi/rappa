@@ -1,4 +1,5 @@
 (function(global) {
+  'use strict';
   var updateBadge = (function() {
     var ba = chrome.browserAction;
     ba.setBadgeBackgroundColor({
@@ -58,7 +59,7 @@
             errorEnd(response);
           } else if (times < 1) {
             massacre.addPower(Number(request.line), function(err, power) {
-              if(err) {
+              if (err) {
                 errorEnd(response);
               }
               massacre.addTimes(url, function(err, t) {

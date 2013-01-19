@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
-excluded=node_modules//*\:test//*.conf.js\:test/lib//*
-included=//Gruntfile.js\:extension/background/js//*.js\:extension/content/js//*.js\:test//*.js
+excluded=extension/test/lib//*.js\:node_modules//*\:test//*.conf.js\:test/lib//*
+globals=_\:false, chrome\:false, describe\: false, context\:false, it\:false, expect\: false, before \:false, beforeEach\:false, after\:false, afterEach\:false, cream\:false, inject\:false, module\:false,\r\njasmine\:false
+included=//Gruntfile.js\:extension/background/js//*.js\:extension/content/js//*.js\:extension/test//*.js\:test//*.js
+options=browser\: true, strict\: true, eqeqeq\:true, undef\:true
+projectSpecificOptions=true

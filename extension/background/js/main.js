@@ -1,4 +1,6 @@
 (function(global) {
+  /*global Github:false */
+  'use strict';
   global.configStore = (function() {
     var storage = global.storage.sync('config');
     return {

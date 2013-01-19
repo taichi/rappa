@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
-
+  /*jshint node:true*/
+  'use strict';
   var fs = require('fs');
   var _ = require('lodash');
 
@@ -11,7 +12,7 @@ module.exports = function(grunt) {
     return result;
   };
   var withoutTest = _.filter(fs.readdirSync(ext()), function(d) {
-    return d != 'test' && fs.statSync(ext(d)).isDirectory();
+    return d !== 'test' && fs.statSync(ext(d)).isDirectory();
   });
   var jsFiles = function(name) {
     return ext(name + '/js/**/*.js');
@@ -20,8 +21,15 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg : pkg,
     jshint : {
+      options : {
+        strict : true,
+        eqeqeq : true,
+        undef : true
+      },
+      test : ['extension/test/background/**/*.js'],
       all : ['Gruntfile.js', jsFiles('background'), jsFiles('content'), jsFiles('options')]
     },
+    // https://github.com/gruntjs/grunt-contrib-copy/pull/35
     copy : {
       extension : {
         files : {

@@ -1,4 +1,6 @@
 (function(global) {
+  /*global purl:false, CryptoJS:false*/
+ 'use strict';
   var storage = global.storage.local('massacre');
   var loadModel = function(callback) {
     storage.get(function(err, model) {

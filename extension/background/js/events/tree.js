@@ -1,4 +1,6 @@
 (function(global) {
+  /*global Github:false */
+ 'use strict';
   var treeCache = ( function() {
       var cache = {};
       var makeCacheKey = function(request) {
