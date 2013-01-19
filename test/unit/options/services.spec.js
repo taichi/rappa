@@ -1,4 +1,5 @@
 describe('services', function() {
+  /*jshint expr:true*/
   'use strict';
   beforeEach(module('Options'));
 
@@ -6,7 +7,11 @@ describe('services', function() {
     var bgMock;
     beforeEach(module(function($provide) {
       $provide.factory('chrome.background', function() {
-        bgMock = jasmine.createSpyObj('configStore', ['set', 'get', 'clear']);
+        bgMock = {
+            set : sinon.spy(),
+            get : sinon.spy(),
+            clear : sinon.spy()
+        };
         return {
           configStore : bgMock
         };
@@ -20,12 +25,12 @@ describe('services', function() {
     }));
 
     it('should define service', function() {
-      expect(service).toBeDefined();
+      expect(service).ok;
     });
 
     describe('#setConfig', function() {
       it('should work normally', function() {
-        var callback = jasmine.createSpy('callback');
+        var callback = sinon.spy();
         var config = {
           aaa : 1,
           bbb : 2
@@ -33,59 +38,63 @@ describe('services', function() {
         service.setConfig(config).then(callback);
         $timeout.flush();
 
-        expect(bgMock.set).toHaveBeenCalled();
-        expect(bgMock.set.mostRecentCall.args[0]).toEqual(config);
-        expect(bgMock.set.mostRecentCall.args[1]).toBeDefined();
+        expect(bgMock.set).called;
+        var calledWith = bgMock.set.getCall(0);
+        expect(calledWith.args[0]).eql(config);
+        expect(calledWith.args[1]).ok;
 
-        bgMock.set.mostRecentCall.args[1](undefined, 33);
+        calledWith.args[1](undefined, 33);
         $timeout.flush();
 
-        expect(callback).toHaveBeenCalledWith(33);
+        expect(callback).calledWith(33);
       });
 
       it('should work error happen', function() {
-        var callback = jasmine.createSpy('callback');
-        var errback = jasmine.createSpy('errback');
+        var callback = sinon.spy();
+        var errback = sinon.spy();
         service.setConfig(33).then(callback, errback);
         $timeout.flush();
 
-        expect(bgMock.set).toHaveBeenCalled();
-        expect(bgMock.set.mostRecentCall.args[1]).toBeDefined();
+        expect(bgMock.set).called;
+        var fn = bgMock.set.getCall(0).args[1];
+        expect(fn).ok;
 
-        bgMock.set.mostRecentCall.args[1]('ERROR', 44);
+        fn('ERROR', 44);
         $timeout.flush();
 
-        expect(callback).not.toHaveBeenCalled();
-        expect(errback).toHaveBeenCalledWith('ERROR');
+        expect(callback).not.called;
+        expect(errback).calledWith('ERROR');
       });
     });
 
     it('#getConfig', function() {
-      var callback = jasmine.createSpy('callback');
+      var callback = sinon.spy();
       service.getConfig().then(callback);
       $timeout.flush();
 
-      expect(bgMock.get).toHaveBeenCalled();
-      expect(bgMock.get.mostRecentCall.args[0]).toBeDefined();
+      expect(bgMock.get).called;
+      var fn = bgMock.get.getCall(0).args[0];
+      expect(fn).ok;
 
-      bgMock.get.mostRecentCall.args[0](undefined, 33);
+      fn(undefined, 33);
       $timeout.flush();
 
-      expect(callback).toHaveBeenCalledWith(33);
+      expect(callback).calledWith(33);
     });
 
     it('#clearConfig', function() {
-      var callback = jasmine.createSpy('callback');
+      var callback = sinon.spy();
       service.clearConfig().then(callback);
       $timeout.flush();
 
-      expect(bgMock.clear).toHaveBeenCalled();
-      expect(bgMock.clear.mostRecentCall.args[0]).toBeDefined();
+      expect(bgMock.clear).called;
+      var fn = bgMock.clear.getCall(0).args[0];
+      expect(fn).ok;
 
-      bgMock.clear.mostRecentCall.args[0](undefined);
+      fn(undefined);
       $timeout.flush();
 
-      expect(callback).toHaveBeenCalled();
+      expect(callback).called;
     });
   });
 
@@ -93,7 +102,7 @@ describe('services', function() {
     var bgMock;
     beforeEach(module(function($provide) {
       $provide.factory('chrome.background', function() {
-        bgMock = jasmine.createSpy('testGitHub');
+        bgMock = sinon.spy();
         return {
           testGitHub : bgMock
         };
@@ -107,7 +116,7 @@ describe('services', function() {
     }));
 
     it('should work normally', function() {
-      var callback = jasmine.createSpy('callback');
+      var callback = sinon.spy();
       var github = {
         username : 'un',
         password : 'ps'
@@ -115,14 +124,15 @@ describe('services', function() {
       service.testGitHub(github).then(callback);
       $timeout.flush();
 
-      expect(bgMock).toHaveBeenCalled();
-      expect(bgMock.mostRecentCall.args[0]).toEqual(github);
-      expect(bgMock.mostRecentCall.args[1]).toBeDefined();
+      expect(bgMock).called;
+      var calledWith = bgMock.getCall(0);
+      expect(calledWith.args[0]).equal(github);
+      expect(calledWith.args[1]).ok;
 
-      bgMock.mostRecentCall.args[1](undefined);
+      calledWith.args[1](undefined);
       $timeout.flush();
 
-      expect(callback).toHaveBeenCalled();
+      expect(callback).called;
     });
   });
 
@@ -130,7 +140,10 @@ describe('services', function() {
     var bgMock;
     beforeEach(module(function($provide) {
       $provide.factory('chrome.background', function() {
-        bgMock = jasmine.createSpyObj('massacre', ['getMetrix', 'clear']);
+        bgMock = {
+          getMetrix : sinon.spy(),
+          clear : sinon.spy()
+        };
         return {
           massacre : bgMock
         };
@@ -144,31 +157,33 @@ describe('services', function() {
     }));
 
     it('#getMetrix', function() {
-      var callback = jasmine.createSpy('callback');
+      var callback = sinon.spy();
       service.getMetrix().then(callback);
       $timeout.flush();
 
-      expect(bgMock.getMetrix).toHaveBeenCalled();
-      expect(bgMock.getMetrix.mostRecentCall.args[0]).toBeDefined();
+      expect(bgMock.getMetrix).called;
+      var fn = bgMock.getMetrix.getCall(0).args[0];
+      expect(fn).ok;
 
-      bgMock.getMetrix.mostRecentCall.args[0](undefined, 33);
+      fn(undefined, 33);
       $timeout.flush();
 
-      expect(callback).toHaveBeenCalledWith(33);
+      expect(callback).calledWith(33);
     });
 
     it('#clearPower', function() {
-      var callback = jasmine.createSpy('callback');
+      var callback = sinon.spy();
       service.clearPower().then(callback);
       $timeout.flush();
 
-      expect(bgMock.clear).toHaveBeenCalled();
-      expect(bgMock.clear.mostRecentCall.args[0]).toBeDefined();
+      expect(bgMock.clear).called;
+      var fn = bgMock.clear.getCall(0).args[0];
+      expect(fn).ok;
 
-      bgMock.clear.mostRecentCall.args[0](undefined, 33);
+      fn(undefined, 33);
       $timeout.flush();
 
-      expect(callback).toHaveBeenCalledWith(33);
+      expect(callback).calledWith(33);
     });
   });
 });

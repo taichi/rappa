@@ -1,4 +1,5 @@
 describe('controllers', function() {
+  /*jshint expr:true*/
   'use strict';
   beforeEach(module('Options'));
 
@@ -9,16 +10,16 @@ describe('controllers', function() {
     $controller = $injector.get('$controller');
   }));
 
-  var setUpController = function(args, names, mockFn) {
-    var svc = jasmine.createSpyObj('service', _.union(['getConfig', 'getMetrix'], names));
+  var setUpController = function(args, names) {
     var defers = {};
-    defers.getConfig_defer = $q.defer();
-    svc.getConfig.andReturn(defers.getConfig_defer.promise);
-    defers.getMetrix_defer = $q.defer();
-    svc.getMetrix.andReturn(defers.getMetrix_defer.promise);
-    if (mockFn) {
-      mockFn(svc, defers);
-    }
+    var svc = _.reduce(_.union(['getConfig', 'getMetrix'], names), function(memo, val) {
+      var s = sinon.stub();
+      memo[val] = s;
+      var d = $q.defer();
+      defers[val+'_defer'] = d;
+      s.returns(d.promise);
+      return memo;
+    }, {});
     args.$scope = $scope;
     args.service = svc;
     $controller('OptionsController', args);
@@ -27,29 +28,29 @@ describe('controllers', function() {
 
   describe('initialize', function() {
     it('should initialize normally', function() {
-      var alert = jasmine.createSpy('alert');
+      var alert = sinon.spy();
       $scope.$on('event:alert', alert);
 
       var args = {};
       var defers = setUpController(args);
 
-      expect($scope.latest).toBeDefined();
-      expect($scope.getMetrix).toBeDefined();
-
-      expect(args.service.getConfig).toHaveBeenCalled();
-      expect(args.service.getMetrix).toHaveBeenCalled();
-      expect($scope.buttons.disabled).toBe(true);
+      expect($scope.latest).ok;
+      expect($scope.getMetrix).ok;
+      
+      expect(args.service.getConfig).called;
+      expect(args.service.getMetrix).called;
+      expect($scope.buttons.disabled).true;
 
       var config = {
         github : {}
       };
       defers.getConfig_defer.resolve(config);
       $scope.$digest();
-      expect($scope.buttons.disabled).toBe(false);
-      expect($scope.config).toBe(config);
-      expect(alert).toHaveBeenCalled();
-      var calledWith = alert.mostRecentCall.args[1];
-      expect(calledWith).toEqual({
+      expect($scope.buttons.disabled).false;
+      expect($scope.config).equal(config);
+      expect(alert).called;
+      var calledWith = alert.getCall(0).args[1];
+      expect(calledWith).eql({
         type : '',
         message_key : 'not_auth'
       });
@@ -59,44 +60,38 @@ describe('controllers', function() {
         urls : 101
       });
       $scope.$digest();
-      expect($scope.power).toBe(100);
-      expect($scope.urls).toBe(101);
+      expect($scope.power).equal(100);
+      expect($scope.urls).equal(101);
     });
   });
 
   it('#clear', function() {
     var args = {};
-    var defers = setUpController(args, 'clearConfig', function(svc) {
-      var defer = $q.defer();
-      svc.clearConfig.andReturn(defer.promise);
-    });
-    expect($scope.clear).toBeDefined();
+    var defers = setUpController(args, 'clearConfig');
+    expect($scope.clear).ok;
     $scope.clear();
-    expect(args.service.clearConfig).toHaveBeenCalled();
+    expect(args.service.clearConfig).called;
   });
 
   it('#apply', function() {
-    var alert = jasmine.createSpy('alert');
+    var alert = sinon.spy();
     $scope.$on('event:alert', alert);
     var args = {};
-    var defers = setUpController(args, 'setConfig', function(svc, defers) {
-      defers.setConfig_defer = $q.defer();
-      svc.setConfig.andReturn(defers.setConfig_defer.promise);
-    });
+    var defers = setUpController(args, 'setConfig');
 
-    expect($scope.apply).toBeDefined();
+    expect($scope.apply).ok;
     var param = {
       a : 1,
       b : 2
     };
     $scope.apply(param);
-    expect(args.service.setConfig).toHaveBeenCalledWith(param);
+    expect(args.service.setConfig).calledWith(param);
     defers.setConfig_defer.resolve();
     $scope.$digest();
 
-    expect(alert).toHaveBeenCalled();
-    var calledWith = alert.mostRecentCall.args[1];
-    expect(calledWith).toEqual({
+    expect(alert).called;
+    var calledWith = alert.getCall(0).args[1];
+    expect(calledWith).eql({
       type : 'info',
       message_key : 'conf_stored'
     });
@@ -106,28 +101,25 @@ describe('controllers', function() {
     var args, alert, defers;
     beforeEach(function() {
       args = {};
-      alert = jasmine.createSpy('alert');
+      alert = sinon.spy();
       $scope.$on('event:alert', alert);
 
-      defers = setUpController(args, 'testGitHub', function(svc, defers) {
-        defers.testGitHub_defer = $q.defer();
-        svc.testGitHub.andReturn(defers.testGitHub_defer.promise);
-      });
+      defers = setUpController(args, 'testGitHub');
     });
 
     it('succeed auth.', function() {
-      expect($scope.test).toBeDefined();
+      expect($scope.test).ok;
 
       var param = {};
       $scope.test(param);
-      expect(args.service.testGitHub).toHaveBeenCalledWith(param);
+      expect(args.service.testGitHub).calledWith(param);
       defers.testGitHub_defer.resolve();
       $scope.$digest();
-      expect(param.tested).toBe(true);
+      expect(param.tested).true;
 
-      expect(alert).toHaveBeenCalled();
-      var calledWith = alert.mostRecentCall.args[1];
-      expect(calledWith).toEqual({
+      expect(alert).called;
+      var calledWith = alert.getCall(0).args[1];
+      expect(calledWith).eql({
         type : 'info',
         message_key : 'already_auth'
       });
@@ -136,14 +128,14 @@ describe('controllers', function() {
     it('failed auth.', function() {
       var param = {};
       $scope.test(param);
-      expect(args.service.testGitHub).toHaveBeenCalledWith(param);
+      expect(args.service.testGitHub).calledWith(param);
       defers.testGitHub_defer.reject('ERROR');
       $scope.$digest();
-      expect(param.tested).toBe(false);
+      expect(param.tested).false;
 
-      expect(alert).toHaveBeenCalled();
-      var calledWith = alert.mostRecentCall.args[1];
-      expect(calledWith).toEqual({
+      expect(alert).called;
+      var calledWith = alert.getCall(0).args[1];
+      expect(calledWith).eql({
         type : '',
         message_key : 'not_auth'
       });
@@ -152,25 +144,22 @@ describe('controllers', function() {
 
   it('#clearPower', function() {
     var args = {};
-    var alert = jasmine.createSpy('alert');
+    var alert = sinon.spy();
     $scope.$on('event:alert', alert);
 
-    var defers = setUpController(args, 'clearPower', function(svc, defers) {
-      defers.clearPower_defer = $q.defer();
-      svc.clearPower.andReturn(defers.clearPower_defer.promise);
-    });
+    var defers = setUpController(args, 'clearPower');
 
-    expect($scope.clearPower).toBeDefined();
+    expect($scope.clearPower).ok;
 
     $scope.clearPower();
-    expect(args.service.clearPower).toHaveBeenCalled();
+    expect(args.service.clearPower).called;
 
     defers.clearPower_defer.resolve();
     $scope.$digest();
 
-    expect(alert).toHaveBeenCalled();
-    var calledWith = alert.mostRecentCall.args[1];
-    expect(calledWith).toEqual({
+    expect(alert).called;
+    var calledWith = alert.getCall(0).args[1];
+    expect(calledWith).eql({
       type : 'info',
       message_key : 'power_clear'
     });

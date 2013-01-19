@@ -6,7 +6,8 @@ describe('directives', function() {
     var translateMock;
     beforeEach(module(function($provide) {
       $provide.factory('translate', function() {
-        translateMock = jasmine.createSpy('translate');
+        translateMock = sinon.stub();
+        translateMock.returns('pppp');
         return translateMock;
       });
     }));
@@ -20,41 +21,35 @@ describe('directives', function() {
     it('should work normally.', function() {
       var element = $compile('<div alert></div>')($scope);
 
-      var returnValue = 'pppp';
-      translateMock.andReturn(returnValue);
-
       var args = {
         type : 'info',
         message_key : 'yyy'
       };
       $scope.$broadcast('event:alert', args);
       $scope.$digest();
-      expect(translateMock).toHaveBeenCalledWith(args.message_key);
+      expect(translateMock).calledWith(args.message_key);
       var kids = element.find('.alert-info');
-      expect(kids.size()).toBe(1);
+      expect(kids.size()).equal(1);
 
       $scope.$broadcast('event:alert', args);
       $scope.$digest();
-      expect(element.find('.alert-info').size()).toBe(1);
+      expect(element.find('.alert-info').size()).equal(1);
 
       kids.trigger('close');
-      expect(element.find('.alert').size()).toBe(0);
+      expect(element.find('.alert').size()).equal(0);
     });
 
     it('called without type', function() {
       var element = $compile('<div alert></div>')($scope);
-
-      var returnValue = 'pppp';
-      translateMock.andReturn(returnValue);
 
       var args = {
         message_key : 'yyy'
       };
       $scope.$broadcast('event:alert', args);
       $scope.$digest();
-      expect(translateMock).toHaveBeenCalledWith(args.message_key);
+      expect(translateMock).calledWith(args.message_key);
       var kids = element.find('.alert');
-      expect(kids.size()).toBe(1);
+      expect(kids.size()).equal(1);
     });
   });
 });

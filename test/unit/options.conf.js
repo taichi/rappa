@@ -1,8 +1,13 @@
 basePath = '../../'
 
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
+  MOCHA,
+  MOCHA_ADAPTER,
+  'extension/test/lib/chai.js',
+  'extension/test/lib/sinon-1.5.2.js',
+  'extension/test/lib/sinon-chai.js',
+  'test/unit/config.js',
+
   'extension/common/*.js',
   'extension/options/lib/*.js',
   'extension/options/js/*.js',

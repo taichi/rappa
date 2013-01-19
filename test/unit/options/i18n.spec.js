@@ -1,4 +1,5 @@
 describe('i18n', function() {
+  /*jshint expr:true*/
   'use strict';
 
   describe('translate', function() {
@@ -6,7 +7,9 @@ describe('i18n', function() {
     var chromeMock;
     beforeEach(module(function($provide) {
       $provide.factory('chrome.i18n', function() {
-        chromeMock = jasmine.createSpyObj('chrome.i18n', ['getMessage']);
+        chromeMock = {
+          getMessage : sinon.spy()
+        };
         return chromeMock;
       });
     }));
@@ -14,7 +17,7 @@ describe('i18n', function() {
     it('should work normally.', inject(function(translate) {
       var args = ['aaa', 'bbb'];
       translate(args);
-      expect(chromeMock.getMessage).toHaveBeenCalledWith(args);
+      expect(chromeMock.getMessage).calledWith(args);
     }));
   });
 
@@ -23,7 +26,7 @@ describe('i18n', function() {
     var translateMock;
     beforeEach(module(function($provide) {
       $provide.factory('translate', function() {
-        translateMock = jasmine.createSpy('translate');
+        translateMock = sinon.stub();
         return translateMock;
       });
     }));
@@ -39,19 +42,19 @@ describe('i18n', function() {
         var element = $compile('<translate key="aaa">zzzz</translate>')($scope);
 
         var returnValue = 'pppp';
-        translateMock.andReturn(returnValue);
+        translateMock.returns(returnValue);
 
         $scope.$digest();
-        expect(element.text()).toEqual(returnValue);
-        expect(translateMock).toHaveBeenCalledWith('aaa');
+        expect(element.text()).equal(returnValue);
+        expect(translateMock).calledWith('aaa');
       });
 
       it('fail to translate', function() {
         var element = $compile('<translate key="aaa">zzzz</translate>')($scope);
 
         $scope.$digest();
-        expect(element.text()).toEqual('zzzz');
-        expect(translateMock).toHaveBeenCalledWith('aaa');
+        expect(element.text()).equal('zzzz');
+        expect(translateMock).calledWith('aaa');
       });
     });
     describe('attribue', function() {
@@ -59,18 +62,18 @@ describe('i18n', function() {
         var element = $compile('<input placeholder="zzzz" translate="{placeholder:\'aaa\'}">bbb</input>')($scope);
         
         var returnValue = 'pppp';
-        translateMock.andReturn(returnValue);
+        translateMock.returns(returnValue);
         
         $scope.$digest();
-        expect(element.attr('placeholder')).toEqual(returnValue);
-        expect(translateMock).toHaveBeenCalledWith('aaa');
+        expect(element.attr('placeholder')).equal(returnValue);
+        expect(translateMock).calledWith('aaa');
       });
       it('fail to translate', function(){
         var element = $compile('<input placeholder="zzzz" translate="{placeholder:\'aaa\'}">bbb</input>')($scope);
         
         $scope.$digest();
-        expect(element.attr('placeholder')).toEqual('zzzz');
-        expect(translateMock).toHaveBeenCalledWith('aaa');
+        expect(element.attr('placeholder')).equal('zzzz');
+        expect(translateMock).calledWith('aaa');
       });
     });
   });
