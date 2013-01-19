@@ -1,4 +1,3 @@
-
 # Rappa
 これはコードリーディング技術を得る為の矯正ギブスとなるChrome拡張です。  
 
@@ -13,7 +12,7 @@
 
 # for build
 - `npm install`
-- `npm install grunt@0.4.0a -g`
+- `npm install grunt@0.4.0rc4 -g`
 - `npm install testacular@canary -g`
 - `npm install handlebars -g`
 
@@ -28,8 +27,8 @@
 - [Aptana](http://www.aptana.com/)
 - [EGit](http://www.eclipse.org/egit/download/)
 - [JsHint eclipse](http://github.eclipsesource.com/jshint-eclipse/install.html)
-- Chrome 23
-- Node 0.8.12
+- Chrome 24
+- Node 0.8.14
 
 # BUG
 スクロール出来ない画面ではブラーが解けない。
@@ -39,12 +38,9 @@
 - chrome.extension.getBackgroundPage を chrome.runtime.getBackgroundPage に変える。
 
 - リリース作業
-    - 128x128 のアイコン
 
 - テストコード
-    - backgroundScript
     - contentScript
-    - E2E test で proxy を GitHub にすれば出来るかも。
 
 - 現在ディレクトリの強調
 
