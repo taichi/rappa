@@ -1,5 +1,6 @@
 describe('services', function() {
   /*jshint expr:true*/
+  //
   'use strict';
   beforeEach(module('Options'));
 
@@ -8,9 +9,9 @@ describe('services', function() {
     beforeEach(module(function($provide) {
       $provide.factory('chrome.background', function() {
         bgMock = {
-            set : sinon.spy(),
-            get : sinon.spy(),
-            clear : sinon.spy()
+          set : sinon.spy(),
+          get : sinon.spy(),
+          clear : sinon.spy()
         };
         return {
           configStore : bgMock

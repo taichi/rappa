@@ -1,5 +1,6 @@
 describe('i18n', function() {
   /*jshint expr:true*/
+  //
   'use strict';
 
   describe('translate', function() {
@@ -60,17 +61,17 @@ describe('i18n', function() {
     describe('attribue', function() {
       it('should work normally.', function() {
         var element = $compile('<input placeholder="zzzz" translate="{placeholder:\'aaa\'}">bbb</input>')($scope);
-        
+
         var returnValue = 'pppp';
         translateMock.returns(returnValue);
-        
+
         $scope.$digest();
         expect(element.attr('placeholder')).equal(returnValue);
         expect(translateMock).calledWith('aaa');
       });
-      it('fail to translate', function(){
+      it('fail to translate', function() {
         var element = $compile('<input placeholder="zzzz" translate="{placeholder:\'aaa\'}">bbb</input>')($scope);
-        
+
         $scope.$digest();
         expect(element.attr('placeholder')).equal('zzzz');
         expect(translateMock).calledWith('aaa');
