@@ -1,5 +1,7 @@
 angular.module('Options').factory('service', ["chrome.background", "$q", "$timeout",
 function(background, $q, $timeout) {
+  //
+  'use strict';
   var resolve = function(deferred) {
     return function(/* arguments */) {
       var ary = [].slice.call(arguments);

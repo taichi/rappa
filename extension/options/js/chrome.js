@@ -1,5 +1,7 @@
 angular.module('chrome', [], ['$provide',
 function($provide) {
+  //
+  'use strict';
   $provide.factory('chrome.background', function() {
     return chrome.extension.getBackgroundPage();
   });

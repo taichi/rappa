@@ -1,5 +1,7 @@
 angular.module('i18n', ['chrome'], ['$provide',
 function($provide) {
+  //
+  'use strict';
   $provide.factory('translate', ['chrome.i18n',
   function(i18n) {
     return function(/* arguments */) {
@@ -9,6 +11,8 @@ function($provide) {
 }]);
 angular.module('i18n.directives', ['i18n'], ['$compileProvider',
 function($compileProvider) {
+  //
+  'use strict';
   $compileProvider.directive('translate', ['translate',
   function(translate) {
     return {

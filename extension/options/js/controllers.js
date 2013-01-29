@@ -1,5 +1,7 @@
 angular.module('Options').controller('OptionsController', ["$scope", "service",
 function($scope, service) {
+  //
+  'use strict';
   $scope.buttons = {
     disabled : false
   };

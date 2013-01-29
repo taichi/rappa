@@ -1,5 +1,7 @@
 angular.module('Options').directive('alert', ['$compile', '$timeout',"translate",
 function($compile, $timeout, translate) {
+  //
+  'use strict';
   return {
     restrict : 'A',
     link : function(scope, element, attr) {
