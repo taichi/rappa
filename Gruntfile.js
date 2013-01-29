@@ -1,6 +1,5 @@
 module.exports = function(grunt) {
-  /*jshint node:true*/
-  'use strict';
+  /*jshint node:true*/'use strict';
   var fs = require('fs');
   var _ = require('lodash');
 
@@ -24,16 +23,59 @@ module.exports = function(grunt) {
       options : {
         strict : true,
         eqeqeq : true,
-        undef : true
+        undef : true,
+        es5 : true
       },
-      test : ['extension/test/background/**/*.js'],
-      all : ['Gruntfile.js', jsFiles('background'), jsFiles('content'), jsFiles('options')]
+      grunt : {
+        options : {
+          node : true
+        },
+        files : {
+          src : ['Gruntfile.js']
+        }
+      },
+      test : {
+        options : {
+          browser : true,
+          globals : {
+            _ : false,
+            chrome : false,
+            describe : false,
+            context : false,
+            it : false,
+            expect : false,
+            before : false,
+            beforeEach : false,
+            after : false,
+            afterEach : false,
+            cream : false,
+            module : false,
+            inject : false,
+            sinon : false
+          }
+        },
+        files : {
+          src : ['test/unit/options/*.js', 'extension/test/background/**/*.js']
+        }
+      },
+      extension : {
+        options : {
+          browser : true,
+          globals : {
+            _ : false,
+            chrome : false,
+            angular : false
+          }
+        },
+        files : {
+          src : [jsFiles('background'), jsFiles('content'), jsFiles('options')]
+        }
+      }
     },
-    // https://github.com/gruntjs/grunt-contrib-copy/pull/35
     copy : {
       extension : {
         files : {
-          'build/extension/' : _.map(withoutTest, function(dir) {
+          'build/' : _.map(withoutTest, function(dir) {
             return ext(dir + '/**');
           })
         }
@@ -42,11 +84,13 @@ module.exports = function(grunt) {
     compress : {
       extension : {
         options : {
-          cwd : 'build/extension'
+          archive : 'build/<%= pkg.name %>-<%= pkg.version %>.<%= grunt.template.today("yyyymmdd_HHMMss") %>.zip'
         },
-        files : {
-          'build/<%= pkg.name %>-<%= pkg.version %>.<%= grunt.template.today("yyyymmdd_HHMMss") %>.zip' : 'build/extension/**'
-        }
+        files : [{
+          expand : true,
+          cwd : 'build/extension/',
+          src : '**'
+        }]
       }
     }
   });
@@ -83,5 +127,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
-  grunt.registerTask('default', ['template', 'test', 'copy', 'manifest', 'compress']);
+  grunt.registerTask('default', ['jshint', 'template', 'test', 'copy', 'manifest', 'compress']);
 };
