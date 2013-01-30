@@ -11,10 +11,10 @@ describe('events/massacre', function() {
     var abbreviate;
     before(function() {
       abbreviate = bg._test.abbreviate;
-      expect(abbreviate).to.be.ok;
+      expect(abbreviate).ok;
     });
     it('should not abbreviate less than 1000', function() {
-      expect(abbreviate(1000 - 1)).to.equal('999');
+      expect(abbreviate(1000 - 1)).equal('999');
     });
     it('should abbreviate 10^3 to 1K', function() {
       expect(abbreviate(1000)).equal('1.0K');
@@ -24,7 +24,7 @@ describe('events/massacre', function() {
       expect(abbreviate(99999)).equal('99K');
     });
     it('should abbreviate 10^6 to 1M', function() {
-      expect(abbreviate(Math.pow(1000, 2))).to.equal('1.0M');
+      expect(abbreviate(Math.pow(1000, 2))).equal('1.0M');
     });
     it('should abbreviate 10^9 to 1G', function() {
       expect(abbreviate(1000000000)).equal('1.0G');
@@ -34,10 +34,10 @@ describe('events/massacre', function() {
       expect(abbreviate(Math.pow(10, 14) - 1)).equal('99T');
     });
     it('should abbreviate less than 100K appropriately', function() {
-      expect(abbreviate(Math.pow(1000, 1) * 100 - 1)).to.equal('99K');
+      expect(abbreviate(Math.pow(1000, 1) * 100 - 1)).equal('99K');
     });
     it('should abbreviate 100K to 0.1M', function() {
-      expect(abbreviate(Math.pow(1000, 1) * 100)).to.equal('0.1M');
+      expect(abbreviate(Math.pow(1000, 1) * 100)).equal('0.1M');
     });
     it('should be 0.9M', function() {
       expect(abbreviate(900000)).equal('0.9M');

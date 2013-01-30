@@ -1,4 +1,4 @@
-angular.module('Options').directive('alert', ['$compile', '$timeout',"translate",
+angular.module('Options').directive('alert', ['$compile', '$timeout','translate',
 function($compile, $timeout, translate) {
   //
   'use strict';

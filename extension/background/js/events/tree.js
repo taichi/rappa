@@ -1,6 +1,7 @@
 (function(global) {
   /*global Github:false */
- 'use strict';
+  //
+  'use strict';
   var treeCache = ( function() {
       var cache = {};
       var makeCacheKey = function(request) {
@@ -45,7 +46,7 @@
           var github = new Github({
             username : gh.account,
             password : gh.password,
-            auth : "basic"
+            auth : 'basic'
           });
           var repo = github.getRepo(request.user, request.repo);
           repo.getTree(request.treeName + '?recursive=true', function(err, tree) {

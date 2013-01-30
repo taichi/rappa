@@ -1,5 +1,6 @@
 (function(global) {
   /*global Github:false */
+  //
   'use strict';
   global.configStore = (function() {
     var storage = global.storage.sync('config');
@@ -19,7 +20,7 @@
     var github = new Github({
       username : credential.account,
       password : credential.password,
-      auth : "basic"
+      auth : 'basic'
     });
     var user = github.getUser();
     user.show(false, callback);

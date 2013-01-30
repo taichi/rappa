@@ -24,7 +24,8 @@ module.exports = function(grunt) {
         strict : true,
         eqeqeq : true,
         undef : true,
-        es5 : true
+        es5 : true,
+        quotmark: 'single'
       },
       grunt : {
         options : {

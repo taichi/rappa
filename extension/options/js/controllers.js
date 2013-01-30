@@ -1,4 +1,4 @@
-angular.module('Options').controller('OptionsController', ["$scope", "service",
+angular.module('Options').controller('OptionsController', ['$scope', 'service',
 function($scope, service) {
   //
   'use strict';

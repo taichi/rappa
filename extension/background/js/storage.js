@@ -1,4 +1,5 @@
 (function(global) {
+  //
   'use strict';
   var addLastError = function(callback, value) {
     callback.call(global, chrome.runtime.lastError, value);

@@ -1,7 +1,7 @@
 describe('model', function() {
   /*global fixture:false */
   /*jshint expr:true */
-  // @formatter:off
+  //
   'use strict';
   var bg;
   before(function() {
@@ -12,7 +12,7 @@ describe('model', function() {
     var massacre;
     beforeEach(function() {
       massacre = bg.massacre;
-      expect(massacre).to.be.ok;
+      expect(massacre).ok;
     });
     afterEach(function(done) {
       var topping = cream(done);
@@ -26,7 +26,7 @@ describe('model', function() {
       massacre.addTimes('http://example.com', function(err, times) {
         topping.ifError(err);
         topping.assert(function() {
-          expect(times).to.equal(1);
+          expect(times).equal(1);
         });
       });
     });
@@ -36,7 +36,7 @@ describe('model', function() {
       massacre.addPower(71, function(err, power) {
         topping.ifError(err);
         topping.assert(function() {
-          expect(power).to.equal(71);
+          expect(power).equal(71);
         });
       });
     });
@@ -46,10 +46,10 @@ describe('model', function() {
       massacre.addTimes('http://example.org', function() {
         massacre.addPower(11, function(err) {
           topping.ifError(err);
-          expect(err).to.equal(undefined);
+          expect(err).equal(undefined);
           massacre.getMetrix(function(err, metrix) {
             topping.assert(function() {
-              expect(metrix).to.deep.equal({
+              expect(metrix).eql({
                 power : 11,
                 urls : 1
               });

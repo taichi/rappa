@@ -1,6 +1,6 @@
 describe('storage', function() {
   /*jshint expr:true */
-  // @formatter:off
+  //
   'use strict';
   var bg;
   before(function() {
@@ -8,16 +8,16 @@ describe('storage', function() {
   });
 
   it('has 3 types', function() {
-    expect(bg.storage.local).to.be.ok;
-    expect(bg.storage.sync).to.be.ok;
-    expect(bg.storage.managed).to.be.ok;
+    expect(bg.storage.local).ok;
+    expect(bg.storage.sync).ok;
+    expect(bg.storage.managed).ok;
   });
 
   describe('local', function() {
     var local;
     beforeEach(function() {
       local = bg.storage.local('testXXX');
-      expect(local).to.be.ok;
+      expect(local).ok;
     });
     afterEach(function(done) {
       var topping = cream(done);
@@ -45,7 +45,7 @@ describe('storage', function() {
         local.get(function(err, m) {
           topping.ifError(err);
           topping.assert(function() {
-            expect(m).to.deep.equal(model);
+            expect(m).eql(model);
           });
         });
       });
@@ -55,7 +55,7 @@ describe('storage', function() {
         local.getBytesInUse(function(err, bytes) {
           topping.ifError(err);
           topping.assert(function() {
-            expect(bytes).to.be.above(0);
+            expect(bytes).above(0);
           });
         });
       });

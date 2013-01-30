@@ -1,4 +1,4 @@
-angular.module('Options').factory('service', ["chrome.background", "$q", "$timeout",
+angular.module('Options').factory('service', ['chrome.background', '$q', '$timeout',
 function(background, $q, $timeout) {
   //
   'use strict';

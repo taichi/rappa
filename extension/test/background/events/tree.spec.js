@@ -1,8 +1,8 @@
 describe('events/tree', function() {
   /*jshint expr:true */
-  // @formatter:off
+  //
   'use strict';
-  
+
   var send = chrome.extension.sendMessage;
   describe('tree', function() {
     var spec = function(done) {
