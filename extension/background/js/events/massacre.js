@@ -1,37 +1,33 @@
 (function(global) {
+  //
   'use strict';
+  global._test = global._test || {};
+  var abbreviate = global._test.abbreviate = function(n) {
+    var s = String(n);
+    if (n < 1000) {
+      return s;
+    }
+    if (Math.pow(10, 14) - 1 < n) {
+      return 'OMG';
+    }
+    var l = s.length;
+    return (function() {
+      switch(l % 3) {
+        case 0:
+          return '0.' + s.charAt(0);
+        case 1:
+          return s.charAt(0) + '.' + s.charAt(1);
+        case 2:
+          return s.substr(0, 2);
+      }
+    })() + ['', 'K', 'M', 'G', 'T'][Math.floor(l / 3)];
+  };
+
   var updateBadge = (function() {
     var ba = chrome.browserAction;
     ba.setBadgeBackgroundColor({
       color : '#FF6633'
     });
-    global._test = global._test || {};
-    var abbreviate  = global._test.abbreviate = (function() {
-      var DIGITS = _.range(1, 5).map(function (i) { return Math.pow(1000, i); });
-      var PREFIXES = ['K', 'M', 'G', 'T'];
-      var truncate = (function () {
-        var PAT = /\d{1,1}\.\d|\d{1,2}/;
-        return function (num) {
-          return String(num).match(PAT);
-        };
-      }());
-      return function (num) {
-        if (num < 1000) {
-          return String(num);
-        }
-        for (var i = 0, length = DIGITS.length; i < length; i++) {
-          if (num < DIGITS[i+1]) {
-            var sig = num / DIGITS[i];
-            if (sig < 100) {
-              return truncate(sig) + PREFIXES[i];
-            } else {
-              return truncate(num / DIGITS[i+1]) + PREFIXES[i+1];
-            }
-          }
-        }
-        return 'OMG';
-      };
-    }());
     return function(value) {
       var str = String(value);
       ba.setBadgeText({
