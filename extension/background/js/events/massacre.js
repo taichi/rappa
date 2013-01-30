@@ -73,9 +73,9 @@
       });
     };
     global.configStore.get(function(err, config) {
-      if (err) {
+      if (err || !!!config.ninja) {
         errorEnd(response);
-      } else if (config.ninja === true) {
+      } else {
         var url = request.url;
         massacre.getTimes(url, function(err, times) {
           if (err) {

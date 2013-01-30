@@ -15,7 +15,7 @@ describe('events/tree', function() {
         treeName : 'master'
       }, function(tree) {
         topping.assert(function() {
-          expect(tree).to.be.ok;
+          expect(tree).ok;
         });
       });
     };
@@ -50,8 +50,8 @@ describe('events/tree', function() {
           treeName : 'master'
         }, function(tree) {
           topping.assert(function() {
-            expect(ok).to.equal('ok');
-            expect(tree).to.deep.equal(status.tree);
+            expect(ok).equal('ok');
+            expect(tree).eql(status.tree);
           });
         });
       });

@@ -2,9 +2,16 @@ describe('events/massacre', function() {
   /*jshint expr:true */
   //
   'use strict';
+  var send = chrome.extension.sendMessage;
   var bg;
   before(function() {
     bg = chrome.extension.getBackgroundPage();
+  });
+  before(function(done) {
+    bg.configStore.clear(done);
+  });
+  after(function(done) {
+    bg.configStore.clear(done);
   });
 
   describe('abbreviate', function() {
@@ -46,6 +53,107 @@ describe('events/massacre', function() {
     it('should be OMG', function() {
       expect(abbreviate(Math.pow(10, 14))).equal('OMG');
       expect(abbreviate(Math.pow(10, 22))).equal('OMG');
+    });
+  });
+
+  describe('line', function() {
+    beforeEach(function(done) {
+      bg.massacre.clear(done);
+    });
+    afterEach(function(done) {
+      bg.massacre.clear(done);
+    });
+
+    context('ninja mode', function() {
+      before(function(done) {
+        bg.configStore.set({
+          ninja : true
+        }, done);
+      });
+      it('should work normally', function(done) {
+        var topping = cream(done);
+        send({
+          type : 'line',
+          url : 'http://example.com/test/repo/README.md',
+          line : 101
+        }, function(resp) {
+          topping.assert(function() {
+            expect(resp.times).equal(1);
+          });
+        });
+      });
+    });
+
+    context('NO ninja mode', function() {
+      before(function(done) {
+        bg.configStore.set({
+          ninja : false
+        }, done);
+      });
+      it('should not keep lines', function(done) {
+        var topping = cream(done);
+        send({
+          type : 'line'
+        }, function(resp) {
+          topping.assert(function() {
+            expect(resp.times).equal(-1);
+          });
+        });
+      });
+    });
+  });
+
+  describe('times', function() {
+    beforeEach(function(done) {
+      bg.massacre.clear(done);
+    });
+    afterEach(function(done) {
+      bg.massacre.clear(done);
+    });
+
+    context('ninja mode', function() {
+      before(function(done) {
+        bg.configStore.set({
+          ninja : true
+        }, done);
+      });
+      beforeEach(function(done) {
+        send({
+          type : 'line',
+          url : 'http://example.com/test/repo/README.md',
+          line : 101
+        }, function() {
+          done();
+        });
+      });
+      it('should work normally', function(done) {
+        var topping = cream(done);
+        send({
+          type : 'times',
+          url : 'http://example.com/test/repo/README.md'
+        }, function(resp) {
+          topping.assert(function() {
+            expect(resp.times).equal(1);
+          });
+        });
+      });
+    });
+    context('NO ninja mode', function() {
+      before(function(done) {
+        bg.configStore.set({
+          ninja : false
+        }, done);
+      });
+      it('should not return times', function(done) {
+        var topping = cream(done);
+        send({
+          type : 'times'
+        }, function(resp) {
+          topping.assert(function() {
+            expect(resp.times).equal(-1);
+          });
+        });
+      });
     });
   });
 });
