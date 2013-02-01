@@ -10,22 +10,12 @@ files = [
 
   // Issue with version > 3.1.14
   // https://github.com/isaacs/node-glob/issues/51
-  'extension/common/jquery-1.8.2.min.js',
-  'extension/common/lodash.custom.min.js',
-  'extension/options/lib/angular.min.js',
-  'extension/options/lib/bootstrap.min.js',
-  'extension/options/js/app.js',
-  'extension/options/js/chrome.js',
-  'extension/options/js/controllers.js',
-  'extension/options/js/directives.js',
-  'extension/options/js/i18n.js',
-  'extension/options/js/services.js',
+  // https://github.com/testacular/testacular/commit/36e87d80
+  'extension/common/*.js',
+  'extension/options/lib/*.js',
+  'extension/options/js/*.js',
   'test/lib/angular-mocks.js',
-  'test/unit/options/chrome.spec.js',
-  'test/unit/options/controllers.spec.js',
-  'test/unit/options/directives.spec.js',
-  'test/unit/options/i18n.spec.js',
-  'test/unit/options/services.spec.js'
+  'test/unit/options/*.js',
 ];
 
 autoWatch = true;

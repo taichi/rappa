@@ -19,8 +19,11 @@ describe('events/tree', function() {
         });
       });
     };
-    it('should work normally', spec);
-    it('should use cache', function(done) {
+    it('should work slowly', function(done) {
+      this.timeout(3000);
+      spec(done);
+    });
+    it('should work faster because of using cache.', function(done) {
       this.timeout(200);
       spec(done);
     });
