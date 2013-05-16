@@ -35,8 +35,7 @@ function($scope, service) {
   $scope.latest = _.compose(enabler, function() {
     return function() {
       return service.getConfig().then(function(config) {
-        return $scope.config = config;
-      }).then(function(config) {
+        $scope.config = config;
         auth_messages(config.github);
       });
     };
