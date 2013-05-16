@@ -90,7 +90,8 @@ module.exports = function(grunt) {
         files : [{
           expand : true,
           cwd : 'build/extension/',
-          src : '**'
+          src : ['**'],
+          dest : ''
         }]
       }
     }
@@ -98,7 +99,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', 'run tests', function() {
     var child = grunt.util.spawn({
-      cmd : 'testacular',
+      cmd : 'karma',
       args : 'start test/unit/options.conf.js --single-run'.split(' ')
     }, this.async());
     child.stdout.pipe(process.stdout);
