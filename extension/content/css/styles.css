@@ -21,10 +21,11 @@
   overflow: hidden;
 }
 
-.repo_container .mini-icon.state {
+.repo_container .octicon.state {
   color: #80A6CD;
+  padding-right: 2px;
 }
-.repo_container .mini-icon.state:hover {
+.repo_container .octicon.state:hover {
   cursor: pointer;
 }
 

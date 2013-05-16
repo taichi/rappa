@@ -6,12 +6,16 @@
     var url = $('meta[property="og:url"]').attr('content');
     var href = $('head link[rel="permalink"]').attr('href');
     var tree = $('.js-branch-menu .js-menu-target').attr('data-ref');
+    if(_.isEmpty(tree)) {
+      tree = $('.js-branch-menu .js-select-button').text();
+    }
     if (url && href && tree) {
       var ary = url.split('/');
+      var h = href.split('/')[4];
       return {
         user : ary[3],
         repo : ary[4],
-        hash : href.split('/')[3],
+        hash : _.isUndefined(h) ? '' : h,
         treeName : tree
       };
     }
