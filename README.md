@@ -12,8 +12,8 @@
 
 # for build
 - `npm install`
-- `npm install grunt@0.4.0rc4 -g`
-- `npm install testacular@canary -g`
+- `npm install grunt-cli -g`
+- `npm install karma -g`
 - `npm install handlebars -g`
 
 ## run tests
@@ -21,7 +21,7 @@
 
 ## memo
 - npm install lodash -g
-- lodash csp -m -o extension/common/lodash.custom.min.js
+- lodash mobile -m -o extension/common/lodash.custom.min.js
 
 # Development Environment
 - [Aptana](http://www.aptana.com/)
