@@ -11,11 +11,14 @@
     $(state).each(function(i, s) {
       content.removeClass(s);
     });
-    var s = 3;
-    if (-1 < times && times < 4) {
-      s = times;
+    var bottom = $(document).height() - $(window).height();
+    if (20 < bottom) {
+      var s = 3;
+      if (-1 < times && times < 4) {
+        s = times;
+      }
+      content.addClass(state[s]);
     }
-    content.addClass(state[s]);
   };
 
   var requestTimes = function() {
