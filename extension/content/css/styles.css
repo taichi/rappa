@@ -16,7 +16,7 @@
 
 .repo_container {
   position: absolute;
-  top: 104px; /* 41 20 28 10 5*/
+  top: 113px; /* 41 20 28 10 5*/
   left: 1em;
   overflow: hidden;
 }
@@ -63,7 +63,7 @@ img.collapse {
   width: 100%;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1155px) {
   .repo_container {
     display: none;
   }
