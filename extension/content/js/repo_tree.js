@@ -4,15 +4,14 @@
  'use strict';
   var getCurrentRepo = function() {
     var url = $('meta[property="og:url"]').attr('content');
-    var href = $('head link[rel="permalink"]').attr('href');
     var tree = $('[data-master-branch="master"]').attr('data-ref');
-    if (url && tree) {
+    var sha = $('.commit-meta [data-clipboard-text]').attr('data-clipboard-text');
+    if (url && sha && tree) {
       var ary = url.split('/');
-      var h = href ? href.split('/')[4] : '';
       return {
         user : ary[3],
         repo : ary[4],
-        hash : h ? h : '',
+        hash : sha,
         treeName : tree
       };
     }
