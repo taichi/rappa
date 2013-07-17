@@ -123,6 +123,16 @@
       });
     });
   };
+
+  $(document).observe({
+    subtree : true,
+    childList : true,
+    attributes : false
+  }, '[data-master-branch="master"]', function() {
+    $('.repo_container').remove();
+    requestTree();
+  });
+
   _.delay(requestTree);
   // TODO ディレクトリクリックからのpjaxに追従してrequestTreeする。
 })(this);
