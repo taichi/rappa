@@ -40,7 +40,7 @@
     var scrollTop = $(this).scrollTop();
     if (reachToBottom === false && scrollTop >= bottom) {
       reachToBottom = true;
-      var n = $('.line_numbers :last-child').first().text();
+      var n = $('.blob-line-nums :last-child').first().text();
       send({
         type : 'line',
         url : location.href,
